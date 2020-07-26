@@ -306,6 +306,10 @@ foreach(library ${LIBRARIES})
 	   SOVERSION ${PROJECT_VERSION_MAJOR}
 	)
 	
+	if(NOT BUILD_SHARED_LIBS)
+		target_compile_options(${NAME} PUBLIC "/MT")
+	endif()
+
 	if (MSVC)
 		target_compile_options(${NAME} PUBLIC "/MP")
 	endif(MSVC)
