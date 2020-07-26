@@ -42,14 +42,14 @@ DecoratorTiledImageInstancer::~DecoratorTiledImageInstancer()
 }
 
 
-SharedPtr<Decorator> DecoratorTiledImageInstancer::InstanceDecorator(const String& RMLUI_UNUSED_PARAMETER(name), const PropertyDictionary& properties, const DecoratorInstancerInterface& interface)
+SharedPtr<Decorator> DecoratorTiledImageInstancer::InstanceDecorator(const String& RMLUI_UNUSED_PARAMETER(name), const PropertyDictionary& properties, const DecoratorInstancerInterface& Interface)
 {
 	RMLUI_UNUSED(name);
 
 	DecoratorTiled::Tile tile;
 	Texture texture;
 
-	if (!GetTileProperties(&tile, &texture, 1, properties, interface))
+	if (!GetTileProperties(&tile, &texture, 1, properties, Interface))
 		return nullptr;
 	
 	auto decorator = MakeShared<DecoratorTiledImage>();

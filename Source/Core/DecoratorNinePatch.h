@@ -62,7 +62,7 @@ public:
 	DecoratorNinePatchInstancer();
 	~DecoratorNinePatchInstancer();
 
-	SharedPtr<Decorator> InstanceDecorator(const String& name, const PropertyDictionary& properties, const DecoratorInstancerInterface& interface) override;
+	SharedPtr<Decorator> InstanceDecorator(const String& name, const PropertyDictionary& properties, const DecoratorInstancerInterface& Interface) override;
 
 private:
 	PropertyId sprite_outer_id, sprite_inner_id;

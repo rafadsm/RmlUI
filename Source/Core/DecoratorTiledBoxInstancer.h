@@ -44,7 +44,7 @@ public:
 	~DecoratorTiledBoxInstancer();
 
 	/// Instances a box decorator.
-	SharedPtr<Decorator> InstanceDecorator(const String& name, const PropertyDictionary& properties, const DecoratorInstancerInterface& interface) override;
+	SharedPtr<Decorator> InstanceDecorator(const String& name, const PropertyDictionary& properties, const DecoratorInstancerInterface& Interface) override;
 };
 
 } // namespace Rml
