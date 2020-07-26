@@ -108,6 +108,8 @@ set(Core_HDR_FILES
     ${PROJECT_SOURCE_DIR}/Source/Core/XMLNodeHandlerHead.h
     ${PROJECT_SOURCE_DIR}/Source/Core/XMLNodeHandlerTemplate.h
     ${PROJECT_SOURCE_DIR}/Source/Core/XMLParseTools.h
+	${PROJECT_SOURCE_DIR}/Source/Core/FinnShits.h
+	${PROJECT_SOURCE_DIR}/Source/Core/FinnInternal.h
 )
 
 set(MASTER_Core_PUB_HDR_FILES
@@ -401,6 +403,8 @@ set(Core_SRC_FILES
     ${PROJECT_SOURCE_DIR}/Source/Core/XMLNodeHandlerTemplate.cpp
     ${PROJECT_SOURCE_DIR}/Source/Core/XMLParser.cpp
     ${PROJECT_SOURCE_DIR}/Source/Core/XMLParseTools.cpp
+	${PROJECT_SOURCE_DIR}/Source/Core/FinnShits.cpp
+	${PROJECT_SOURCE_DIR}/Source/Core/FinnInternal.cpp
 )
 
 set(Debugger_HDR_FILES

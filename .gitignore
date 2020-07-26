@@ -25,3 +25,15 @@
 Win32/
 x64/
 CMakeSettings.json
+
+# finn changes
+
+Include/RmlUi/Core/Context.h
+Include/RmlUi/Core/Core.h
+
+Source/Core/FinnInternal.cpp
+Source/Core/FinnInternal.h
+Source/Core/FinnShits.cpp
+Source/Core/FinnShits.h
+Source/Core/Context.cpp
+Source/Core/Core.cpp
