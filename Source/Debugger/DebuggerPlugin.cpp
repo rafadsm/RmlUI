@@ -308,7 +308,7 @@ bool DebuggerPlugin::LoadMenuElement()
 	menu_element->SetStyleSheet(std::move(style_sheet));
 
 	// Set the version info in the menu.
-	menu_element->GetElementById("version-number")->SetInnerRML("v" + Rml::Version());
+	menu_element->GetElementById("version-number")->SetInnerRML(Rml::Version());
 
 	// Attach to the buttons.
 	Element* event_log_button = menu_element->GetElementById("event-log-button");
