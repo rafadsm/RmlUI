@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_DECORATORTILED_H
-#define RMLUI_CORE_DECORATORTILED_H
+#ifndef RMLUICOREDECORATORTILED_H
+#define RMLUICOREDECORATORTILED_H
 
 #include "../../Include/RmlUi/Core/ComputedValues.h"
 #include "../../Include/RmlUi/Core/Decorator.h"
 #include "../../Include/RmlUi/Core/Vertex.h"
 
 namespace Rml {
+namespace Core {
 
 struct Texture;
 
@@ -94,7 +95,7 @@ public:
 		/// @param[in] surface_origin The starting point of the first tile to generate.
 		/// @param[in] surface_dimensions The dimensions of the surface to be tiled.
 		/// @param[in] tile_dimensions The dimensions to render this tile at.
-		void GenerateGeometry(Vector< Vertex >& vertices, Vector< int >& indices, Element* element, const Vector2f& surface_origin, const Vector2f& surface_dimensions, const Vector2f& tile_dimensions) const;
+		void GenerateGeometry(std::vector< Vertex >& vertices, std::vector< int >& indices, Element* element, const Vector2f& surface_origin, const Vector2f& surface_dimensions, const Vector2f& tile_dimensions) const;
 
 		struct TileData
 		{
@@ -126,5 +127,7 @@ protected:
 	void ScaleTileDimensions(Vector2f& tile_dimensions, float axis_value, int axis) const;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

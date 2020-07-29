@@ -25,14 +25,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_ANIMATION_H
-#define RMLUI_CORE_ANIMATION_H
+#ifndef RMLUICOREANIMATION_H
+#define RMLUICOREANIMATION_H
 
 #include "Types.h"
 #include "Tween.h"
 #include "ID.h"
 
 namespace Rml {
+namespace Core {
 
 /* Data parsed from the 'animation' property. */
 struct Animation {
@@ -57,10 +58,10 @@ struct Transition {
 struct TransitionList {
 	bool none = true;
 	bool all = false;
-	Vector<Transition> transitions;
+	std::vector<Transition> transitions;
 
 	TransitionList() {}
-	TransitionList(bool none, bool all, Vector<Transition> transitions) :
+	TransitionList(bool none, bool all, std::vector<Transition> transitions) :
 		none(none), all(all), transitions(transitions) {}
 };
 
@@ -71,5 +72,7 @@ inline bool operator!=(const Transition& a, const Transition& b) { return !(a ==
 inline bool operator==(const TransitionList& a, const TransitionList& b) { return a.none == b.none && a.all == b.all && a.transitions == b.transitions; }
 inline bool operator!=(const TransitionList& a, const TransitionList& b) { return !(a == b); }
 
-} // namespace Rml
+}
+}
+
 #endif

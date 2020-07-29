@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_SHELL_SHELLFILEINTERFACE_H
-#define RMLUI_SHELL_SHELLFILEINTERFACE_H
+#ifndef SHELLFILEINTERFACE_H
+#define SHELLFILEINTERFACE_H
 
 #include <RmlUi/Core/Types.h>
 #include <RmlUi/Core/FileInterface.h>
@@ -37,29 +37,29 @@
 	@author Lloyd Weehuizen
  */
 
-class ShellFileInterface : public Rml::FileInterface
+class ShellFileInterface : public Rml::Core::FileInterface
 {
 public:
-	ShellFileInterface(const Rml::String& root);
+	ShellFileInterface(const Rml::Core::String& root);
 	virtual ~ShellFileInterface();
 
 	/// Opens a file.		
-	Rml::FileHandle Open(const Rml::String& path) override;
+	Rml::Core::FileHandle Open(const Rml::Core::String& path) override;
 
 	/// Closes a previously opened file.		
-	void Close(Rml::FileHandle file) override;
+	void Close(Rml::Core::FileHandle file) override;
 
 	/// Reads data from a previously opened file.		
-	size_t Read(void* buffer, size_t size, Rml::FileHandle file) override;
+	size_t Read(void* buffer, size_t size, Rml::Core::FileHandle file) override;
 
 	/// Seeks to a point in a previously opened file.		
-	bool Seek(Rml::FileHandle file, long offset, int origin) override;
+	bool Seek(Rml::Core::FileHandle file, long offset, int origin) override;
 
 	/// Returns the current position of the file pointer.		
-	size_t Tell(Rml::FileHandle file) override;
+	size_t Tell(Rml::Core::FileHandle file) override;
 
 private:
-	Rml::String root;
+	Rml::Core::String root;
 };
 
 #endif

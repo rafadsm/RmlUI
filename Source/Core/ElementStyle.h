@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTSTYLE_H
-#define RMLUI_CORE_ELEMENTSTYLE_H
+#ifndef RMLUICOREELEMENTSTYLE_H
+#define RMLUICOREELEMENTSTYLE_H
 
 #include "../../Include/RmlUi/Core/ComputedValues.h"
 #include "../../Include/RmlUi/Core/Types.h"
@@ -35,6 +35,7 @@
 #include "../../Include/RmlUi/Core/PropertyDictionary.h"
 
 namespace Rml {
+namespace Core {
 
 class ElementDefinition;
 class PropertiesIterator;
@@ -166,5 +167,7 @@ private:
 	PropertyIdSet dirty_properties;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

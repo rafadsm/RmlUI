@@ -32,6 +32,7 @@
 #include <string.h>
 
 namespace Rml {
+namespace Core {
 
 PropertyParserTransform::PropertyParserTransform()
 	: number(Property::NUMBER),
@@ -54,7 +55,7 @@ bool PropertyParserTransform::ParseValue(Property& property, const String& value
 		return true;
 	}
 
-	TransformPtr transform = MakeShared<Transform>();
+	TransformPtr transform = std::make_shared<Transform>();
 
 	char const* next = value.c_str();
 
@@ -192,7 +193,7 @@ bool PropertyParserTransform::Scan(int& out_bytes_read, const char* str, const c
 	/* use the quicker stack-based argument buffer, if possible */
 	char *arg = 0;
 	char arg_stack[1024];
-	String arg_heap;
+	std::string arg_heap;
 	if (strlen(str) < sizeof(arg_stack))
 	{
 		arg = arg_stack;
@@ -290,4 +291,5 @@ bool PropertyParserTransform::Scan(int& out_bytes_read, const char* str, const c
 	return total_bytes_read > 0;
 }
 
-} // namespace Rml
+}
+}

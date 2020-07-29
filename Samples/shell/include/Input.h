@@ -26,26 +26,37 @@
  *
  */
 
-#ifndef RMLUI_SHELL_INPUT_H
-#define RMLUI_SHELL_INPUT_H
+#ifndef SHELLINPUT_H
+#define SHELLINPUT_H
 
 #include <RmlUi/Core/Input.h>
 #include <RmlUi/Core/Types.h>
+
+namespace Rml {
+namespace Core {
+
+class Context;
+
+}
+}
+
+/**
+ */
 
 class Input
 {
 public:
 	/// Sets the context to send input events to.
 	/// @param[in] context The context to send input events to.
-	static void SetContext(Rml::Context* context);
+	static void SetContext(Rml::Core::Context* context);
 	/// Returns the character code for a key identifer / key modifier combination.
 	/// @param[in] key_identifier The key to generate a character code for.
 	/// @param[in] key_modifier_state The configuration of the key modifiers.
 	/// @return The character code.
-	static Rml::Character GetCharacterCode(Rml::Input::KeyIdentifier key_identifier, int key_modifier_state);
+	static Rml::Core::Character GetCharacterCode(Rml::Core::Input::KeyIdentifier key_identifier, int key_modifier_state);
 
 protected:
-	static Rml::Context* context;
+	static Rml::Core::Context* context;
 };
 
 #endif

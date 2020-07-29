@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTBACKGROUND_H
-#define RMLUI_CORE_ELEMENTBACKGROUND_H
+#ifndef RMLUICOREELEMENTBACKGROUND_H
+#define RMLUICOREELEMENTBACKGROUND_H
 
 #include "../../Include/RmlUi/Core/Geometry.h"
 
 namespace Rml {
+namespace Core {
 
 class Box;
 class Element;
@@ -66,5 +67,7 @@ private:
 	bool background_dirty;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

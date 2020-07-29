@@ -35,6 +35,7 @@
 #include <algorithm>
 
 namespace Rml {
+namespace Core {
 
 FontFaceHandleDefault::FontFaceHandleDefault()
 {
@@ -403,7 +404,7 @@ FontFaceLayer* FontFaceHandleDefault::GetOrCreateLayer(const SharedPtr<const Fon
 	layers.push_back(EffectLayerPair{ font_effect_ptr, nullptr });
 	auto& layer = layers.back().layer;
 	
-	layer = MakeUnique<FontFaceLayer>(font_effect);
+	layer = std::make_unique<FontFaceLayer>(font_effect);
 	GenerateLayer(layer.get());
 
 	return layer.get();
@@ -450,4 +451,5 @@ bool FontFaceHandleDefault::GenerateLayer(FontFaceLayer* layer)
 	return result;
 }
 
-} // namespace Rml
+}
+}

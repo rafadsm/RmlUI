@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_CONTEXTINSTANCERDEFAULT_H
-#define RMLUI_CORE_CONTEXTINSTANCERDEFAULT_H
+#ifndef RMLUICORECONTEXTINSTANCERDEFAULT_H
+#define RMLUICORECONTEXTINSTANCERDEFAULT_H
 
 #include "../../Include/RmlUi/Core/ContextInstancer.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	Default instancer for instancing contexts.
@@ -58,5 +59,7 @@ public:
 	void Release() override;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

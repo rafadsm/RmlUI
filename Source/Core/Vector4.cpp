@@ -29,6 +29,7 @@
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 Vector4i operator*(int lhs, const Vector4i& rhs)
 {
@@ -50,4 +51,5 @@ Vector4< float > Vector4< float >::Normalise() const
 	return *this / magnitude;
 }
 
-} // namespace Rml
+}
+}

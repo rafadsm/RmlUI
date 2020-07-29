@@ -31,6 +31,7 @@
 #ifndef RMLUI_NO_FILE_INTERFACE_DEFAULT
 
 namespace Rml {
+namespace Core {
 
 FileInterfaceDefault::~FileInterfaceDefault()
 {
@@ -66,5 +67,7 @@ size_t FileInterfaceDefault::Tell(FileHandle file)
 	return ftell((FILE*) file);
 }
 
-} // namespace Rml
+}
+}
+
 #endif /*RMLUI_NO_FILE_INTERFACE_DEFAULT*/

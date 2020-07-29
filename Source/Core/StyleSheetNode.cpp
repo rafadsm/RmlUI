@@ -34,6 +34,7 @@
 #include <algorithm>
 
 namespace Rml {
+namespace Core {
 
 StyleSheetNode::StyleSheetNode()
 {
@@ -62,7 +63,7 @@ StyleSheetNode* StyleSheetNode::GetOrCreateChildNode(const StyleSheetNode& other
 	}
 
 	// We don't, so create a new child
-	auto child = MakeUnique<StyleSheetNode>(this, other.tag, other.id, other.class_names, other.pseudo_class_names, other.structural_selectors, other.child_combinator);
+	auto child = std::make_unique<StyleSheetNode>(this, other.tag, other.id, other.class_names, other.pseudo_class_names, other.structural_selectors, other.child_combinator);
 	StyleSheetNode* result = child.get();
 
 	children.push_back(std::move(child));
@@ -80,7 +81,7 @@ StyleSheetNode* StyleSheetNode::GetOrCreateChildNode(String&& tag, String&& id, 
 	}
 
 	// We don't, so create a new child
-	auto child = MakeUnique<StyleSheetNode>(this, std::move(tag), std::move(id), std::move(classes), std::move(pseudo_classes), std::move(structural_pseudo_classes), child_combinator);
+	auto child = std::make_unique<StyleSheetNode>(this, std::move(tag), std::move(id), std::move(classes), std::move(pseudo_classes), std::move(structural_pseudo_classes), child_combinator);
 	StyleSheetNode* result = child.get();
 
 	children.push_back(std::move(child));
@@ -266,23 +267,14 @@ inline bool StyleSheetNode::MatchStructuralSelector(const Element* element) cons
 }
 
 // Returns true if this node is applicable to the given element, given its IDs, classes and heritage.
-bool StyleSheetNode::IsApplicable(const Element* const in_element, bool skip_id_tag) const
+bool StyleSheetNode::IsApplicable(const Element* const in_element) const
 {
-	// Determine whether the element matches the current node and its entire lineage. The entire hierarchy of
-	// the element's document will be considered during the match as necessary.
-
-	if (skip_id_tag)
-	{
-		// Id and tag have already been checked, only check class and pseudo class.
-		if (!MatchClassPseudoClass(in_element))
-			return false;
-	}
-	else
-	{
-		// Id and tag have not already been matched, match everything.
-		if (!Match(in_element))
-			return false;
-	}
+	// This function is called with an element that matches a style node only with the tag name and id. We have to determine
+	// here whether or not it also matches the required hierarchy.
+	
+	// First, check locally for matching class and pseudo class. Id and tag have already been checked in StyleSheet.
+	if (!MatchClassPseudoClass(in_element))
+		return false;
 
 	const Element* element = in_element;
 
@@ -338,4 +330,5 @@ void StyleSheetNode::CalculateAndSetSpecificity()
 		specificity += parent->specificity;
 }
 
-} // namespace Rml
+}
+}

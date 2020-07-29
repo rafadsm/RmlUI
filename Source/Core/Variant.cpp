@@ -30,6 +30,7 @@
 #include <string.h>
 
 namespace Rml {
+namespace Core {
 
 Variant::Variant() : type(NONE)
 {
@@ -191,12 +192,6 @@ void Variant::Set(Variant&& other)
 	RMLUI_ASSERT(type == other.type);
 }
 
-void Variant::Set(const bool value)
-{
-	type = BOOL;
-	SET_VARIANT(bool);
-}
-
 void Variant::Set(const byte value)
 {
 	type = BYTE;
@@ -215,22 +210,15 @@ void Variant::Set(const float value)
 	SET_VARIANT(float);
 }
 
-void Variant::Set(const double value)
-{
-	type = DOUBLE;
-	SET_VARIANT(double);
-}
-
 void Variant::Set(const int value)
 {
 	type = INT;
 	SET_VARIANT(int);
 }
-
-void Variant::Set(const int64_t value)
+void Variant::Set(const Character value)
 {
-	type = INT64;
-	SET_VARIANT(int64_t);
+	type = WORD;
+	SET_VARIANT(Character);
 }
 
 void Variant::Set(const char* value) 
@@ -456,22 +444,18 @@ bool Variant::operator==(const Variant & other) const
 
 	switch (type)
 	{
-	case BOOL:
-		return DEFAULT_VARIANT_COMPARE(bool);
 	case BYTE:
 		return DEFAULT_VARIANT_COMPARE(byte);
 	case CHAR:
 		return DEFAULT_VARIANT_COMPARE(char);
 	case FLOAT:
 		return DEFAULT_VARIANT_COMPARE(float);
-	case DOUBLE:
-		return DEFAULT_VARIANT_COMPARE(double);
 	case INT:
 		return DEFAULT_VARIANT_COMPARE(int);
-	case INT64:
-		return DEFAULT_VARIANT_COMPARE(int64_t);
 	case STRING:
 		return DEFAULT_VARIANT_COMPARE(String);
+	case WORD:
+		return DEFAULT_VARIANT_COMPARE(Character);
 	case VECTOR2:
 		return DEFAULT_VARIANT_COMPARE(Vector2f);
 	case VECTOR3:
@@ -504,4 +488,5 @@ bool Variant::operator==(const Variant & other) const
 	return false;
 }
 
-} // namespace Rml
+}
+}

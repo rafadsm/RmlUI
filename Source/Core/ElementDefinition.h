@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTDEFINITION_H
-#define RMLUI_CORE_ELEMENTDEFINITION_H
+#ifndef RMLUICOREELEMENTDEFINITION_H
+#define RMLUICOREELEMENTDEFINITION_H
 
 #include "../../Include/RmlUi/Core/PropertyDictionary.h"
 #include "../../Include/RmlUi/Core/PropertyIdSet.h"
 #include "../../Include/RmlUi/Core/Traits.h"
 
 namespace Rml {
+namespace Core {
 
 class StyleSheetNode;
 class ElementDefinitionIterator;
@@ -47,7 +48,7 @@ class ElementDefinitionIterator;
 class ElementDefinition : public NonCopyMoveable
 {
 public:
-	ElementDefinition(const Vector< const StyleSheetNode* >& style_sheet_nodes);
+	ElementDefinition(const std::vector< const StyleSheetNode* >& style_sheet_nodes);
 
 	/// Returns a specific property from the element definition.
 	/// @param[in] id The id of the property to return.
@@ -64,5 +65,7 @@ private:
 	PropertyIdSet property_ids;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

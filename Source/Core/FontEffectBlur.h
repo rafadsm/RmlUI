@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTEFFECTBLUR_H
-#define RMLUI_CORE_FONTEFFECTBLUR_H
+#ifndef RMLUICOREFONTEFFECTBLUR_H
+#define RMLUICOREFONTEFFECTBLUR_H
 
 #include "../../Include/RmlUi/Core/ConvolutionFilter.h"
 #include "../../Include/RmlUi/Core/FontEffect.h"
 #include "../../Include/RmlUi/Core/FontEffectInstancer.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	A concrete font effect for rendering Gaussian blurred text.
@@ -77,5 +78,7 @@ private:
 };
 
 
-} // namespace Rml
+}
+}
+
 #endif

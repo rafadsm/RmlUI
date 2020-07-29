@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_DECORATORGRADIENT_H
-#define RMLUI_CORE_DECORATORGRADIENT_H
+#ifndef RMLUICOREDECORATORGRADIENT_H
+#define RMLUICOREDECORATORGRADIENT_H
 
 #include "../../Include/RmlUi/Core/Decorator.h"
 #include "../../Include/RmlUi/Core/DecoratorInstancer.h"
 #include "../../Include/RmlUi/Core/Property.h"
 
 namespace Rml {
+namespace Core {
 
 class DecoratorGradient : public Decorator
 {
@@ -67,11 +68,13 @@ public:
 
 private:
 	struct GradientPropertyIds {
-		PropertyId direction, start, stop;
+		Rml::Core::PropertyId direction, start, stop;
 	};
 	GradientPropertyIds ids;
 
 };
 
-} // namespace Rml
+}
+}
+
 #endif

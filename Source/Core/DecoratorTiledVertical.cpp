@@ -33,6 +33,7 @@
 #include "../../Include/RmlUi/Core/Texture.h"
 
 namespace Rml {
+namespace Core {
 
 struct DecoratorTiledVerticalData
 {
@@ -155,4 +156,5 @@ void DecoratorTiledVertical::RenderElement(Element* element, DecoratorDataHandle
 		data->geometry[i].Render(translation);
 }
 
-} // namespace Rml
+}
+}

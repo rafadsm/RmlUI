@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_LAYOUTENGINE_H
-#define RMLUI_CORE_LAYOUTENGINE_H
+#ifndef RMLUICORELAYOUTENGINE_H
+#define RMLUICORELAYOUTENGINE_H
 
 #include "LayoutBlockBox.h"
 
 namespace Rml {
+namespace Core {
 
 class Box;
 
@@ -124,5 +125,7 @@ private:
 	LayoutBlockBox* block_context_box;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -31,6 +31,7 @@
 #include "../../Include/RmlUi/Core/Geometry.h"
 
 namespace Rml {
+namespace Core {
 
 struct DecoratorTiledBoxData
 {
@@ -295,4 +296,5 @@ void DecoratorTiledBox::RenderElement(Element* element, DecoratorDataHandle elem
 		data->geometry[i].Render(translation);
 }
 
-} // namespace Rml
+}
+}

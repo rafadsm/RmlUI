@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_LUAINVADERS_GAME_H
-#define RMLUI_LUAINVADERS_GAME_H
+#ifndef RMLUIINVADERSGAME_H
+#define RMLUIINVADERSGAME_H
 
 #include <RmlUi/Core/Types.h>
 #include <RmlUi/Core/Texture.h>
@@ -91,7 +91,7 @@ public:
 	bool IsGameOver() const;
 
 	/// Get the dimensions of the game window.
-	const Rml::Vector2f GetWindowDimensions();	
+	const Rml::Core::Vector2f GetWindowDimensions();	
 
 private:
 
@@ -119,7 +119,7 @@ private:
 	Shield** shields;
 
 	// Texture that contains the sprites
-	Rml::TextureHandle texture;
+	Rml::Core::TextureHandle texture;
 
 	void InitialiseShields();
 	void InitialiseWave();

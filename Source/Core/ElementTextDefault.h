@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTTEXTDEFAULT_H
-#define RMLUI_CORE_ELEMENTTEXTDEFAULT_H
+#ifndef RMLUICOREELEMENTTEXTDEFAULT_H
+#define RMLUICOREELEMENTTEXTDEFAULT_H
 
 #include "../../Include/RmlUi/Core/Header.h"
 #include "../../Include/RmlUi/Core/ElementText.h"
 #include "../../Include/RmlUi/Core/Geometry.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	@author Peter Curry
@@ -108,7 +109,7 @@ private:
 
 	String text;
 
-	typedef Vector< Line > LineList;
+	typedef std::vector< Line > LineList;
 	LineList lines;
 
 	bool dirty_layout_on_change;
@@ -133,5 +134,7 @@ private:
 	int font_handle_version;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTENGINEDEFAULT_FONTFACELAYER_H
-#define RMLUI_CORE_FONTENGINEDEFAULT_FONTFACELAYER_H
+#ifndef RMLUICOREFONTFACELAYER_H
+#define RMLUICOREFONTFACELAYER_H
 
 #include "../../../Include/RmlUi/Core/FontGlyph.h"
 #include "../../../Include/RmlUi/Core/Geometry.h"
@@ -36,6 +36,7 @@
 #include "../TextureLayout.h"
 
 namespace Rml {
+namespace Core {
 
 class FontEffect;
 class FontFaceHandleDefault;
@@ -84,8 +85,8 @@ public:
 			return;
 
 		// Generate the geometry for the character.
-		Vector< Vertex >& character_vertices = geometry[box.texture_index].GetVertices();
-		Vector< int >& character_indices = geometry[box.texture_index].GetIndices();
+		std::vector< Vertex >& character_vertices = geometry[box.texture_index].GetVertices();
+		std::vector< int >& character_indices = geometry[box.texture_index].GetIndices();
 
 		character_vertices.resize(character_vertices.size() + 4);
 		character_indices.resize(character_indices.size() + 6);
@@ -131,7 +132,7 @@ private:
 	};
 
 	using CharacterMap = UnorderedMap<Character, TextureBox>;
-	using TextureList = Vector<Texture>;
+	using TextureList = std::vector<Texture>;
 
 	SharedPtr<const FontEffect> effect;
 
@@ -142,5 +143,7 @@ private:
 	Colourb colour;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

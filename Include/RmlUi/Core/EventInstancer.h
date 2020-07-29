@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_EVENTINSTANCER_H
-#define RMLUI_CORE_EVENTINSTANCER_H
+#ifndef RMLUICOREEVENTINSTANCER_H
+#define RMLUICOREEVENTINSTANCER_H
 
 #include "Traits.h"
 #include "Header.h"
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 class Element;
 class Event;
@@ -62,5 +63,7 @@ public:
 	virtual void ReleaseEvent(Event* event) = 0;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

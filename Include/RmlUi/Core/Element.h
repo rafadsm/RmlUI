@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENT_H
-#define RMLUI_CORE_ELEMENT_H
+#ifndef RMLUICOREELEMENT_H
+#define RMLUICOREELEMENT_H
 
 #include "ScriptInterface.h"
 #include "Header.h"
@@ -41,9 +41,9 @@
 #include "Tween.h"
 
 namespace Rml {
+namespace Core {
 
 class Context;
-class DataModel;
 class Decorator;
 class ElementInstancer;
 class EventDispatcher;
@@ -245,6 +245,8 @@ public:
 	/// Returns 'line-height' property value from element's computed values.
 	float GetLineHeight();
 
+	/// Returns this element's TransformState
+	const TransformState *GetTransformState() const noexcept;
 	/// Project a 2D point in pixel coordinates onto the element's plane.
 	/// @param[in-out] point The point to project in, and the resulting projected point out.
 	/// @return True on success, false if transformation matrix is singular.
@@ -524,18 +526,6 @@ public:
 	/// @param[out] elements Resulting elements.
 	/// @param[in] tag Tag to search for.
 	void GetElementsByClassName(ElementList& elements, const String& class_name);
-	/// Returns the first descendent element matching the RCSS selector query.
-	/// @param[in] selectors The selector or comma-separated selectors to match against.
-	/// @return The first matching element during a depth-first traversal.
-	/// @performance Prefer GetElementById/TagName/ClassName whenever possible.
-	Element* QuerySelector(const String& selector);
-	/// Returns all descendent elements matching the RCSS selector query.
-	/// @param[out] elements The list of matching elements.
-	/// @param[in] selectors The selector or comma-separated selectors to match against.
-	/// @performance Prefer GetElementById/TagName/ClassName whenever possible.
-	void QuerySelectorAll(ElementList& elements, const String& selectors);
-
-
 	//@}
 
 	/**
@@ -543,21 +533,23 @@ public:
 	 */
 	//@{
 	/// Access the event dispatcher for this element.
+	/// @return The element's dispatcher.
 	EventDispatcher* GetEventDispatcher() const;
 	/// Returns event types with number of listeners for debugging.
+	/// @return Summary of attached listeners.
 	String GetEventDispatcherSummary() const;
 	/// Access the element background.
+	/// @return The element's background.
 	ElementBackground* GetElementBackground() const;
 	/// Access the element border.
+	/// @return The element's boder.
 	ElementBorder* GetElementBorder() const;
 	/// Access the element decorators.
+	/// @return The element decoration.
 	ElementDecoration* GetElementDecoration() const;
 	/// Returns the element's scrollbar functionality.
+	/// @return The element's scrolling functionality.
 	ElementScroll* GetElementScroll() const;
-	/// Returns the element's transform state.
-	const TransformState* GetTransformState() const noexcept;
-	/// Returns the data model of this element.
-	DataModel* GetDataModel() const;
 	//@}
 	
 	/// Returns true if this element requires clipping
@@ -630,8 +622,6 @@ protected:
 
 private:
 	void SetParent(Element* parent);
-	
-	void SetDataModel(DataModel* new_data_model);
 
 	void DirtyOffset();
 	void UpdateOffset();
@@ -682,8 +672,6 @@ private:
 	// The owning document
 	ElementDocument* owner_document;
 
-	// Active data model for this element.
-	DataModel* data_model;
 	// Attributes on this element.
 	ElementAttributes attributes;
 
@@ -700,7 +688,7 @@ private:
 	Vector2f scroll_offset;
 
 	// The size of the element.
-	using BoxList = Vector< Box >;
+	using BoxList = std::vector< Box >;
 	Box main_box;
 	BoxList additional_boxes;
 
@@ -748,10 +736,12 @@ private:
 	friend class ElementStyle;
 	friend class LayoutEngine;
 	friend class LayoutInlineBox;
+	friend struct ElementDeleter;
 	friend class ElementScroll;
 };
 
-} // namespace Rml
+}
+}
 
 #include "Element.inl"
 

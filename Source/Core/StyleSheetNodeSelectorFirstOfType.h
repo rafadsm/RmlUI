@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_STYLESHEETNODESELECTORFIRSTOFTYPE_H
-#define RMLUI_CORE_STYLESHEETNODESELECTORFIRSTOFTYPE_H
+#ifndef RMLUICORESTYLESHEETNODESELECTORFIRSTOFTYPE_H
+#define RMLUICORESTYLESHEETNODESELECTORFIRSTOFTYPE_H
 
 #include "StyleSheetNodeSelector.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	A node selector for the first child of its type.
@@ -49,5 +50,7 @@ public:
 	bool IsApplicable(const Element* element, int a, int b) override;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

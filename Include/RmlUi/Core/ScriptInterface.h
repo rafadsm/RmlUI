@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_SCRIPTINTERFACE_H
-#define RMLUI_CORE_SCRIPTINTERFACE_H
+#ifndef RMLUICORESCRIPTINTERFACE_H
+#define RMLUICORESCRIPTINTERFACE_H
 
 #include "Header.h"
 #include "Traits.h"
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	Base class for all objects that hold a scriptable object.
@@ -52,5 +53,7 @@ public:
 	}
 };
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -27,6 +27,7 @@
  */
 
 #include <RmlUi/Core.h>
+#include <RmlUi/Controls.h>
 #include <RmlUi/Debugger.h>
 #include <Input.h>
 #include <Shell.h>
@@ -39,9 +40,9 @@
 class DemoWindow
 {
 public:
-	DemoWindow(const Rml::String &title, const Rml::Vector2f &position, Rml::Context *context)
+	DemoWindow(const Rml::Core::String &title, const Rml::Core::Vector2f &position, Rml::Core::Context *context)
 	{
-		using namespace Rml;
+		using namespace Rml::Core;
 		document = context->LoadDocument("basic/animation/data/animation.rml");
 		if (document != nullptr)
 		{
@@ -153,17 +154,17 @@ public:
 		}
 	}
 
-	Rml::ElementDocument * GetDocument() {
+	Rml::Core::ElementDocument * GetDocument() {
 		return document;
 	}
 
 private:
-	Rml::ElementDocument *document;
+	Rml::Core::ElementDocument *document;
 	double t_prev_fade = 0;
 };
 
 
-Rml::Context* context = nullptr;
+Rml::Core::Context* context = nullptr;
 ShellRenderInterfaceExtensions *shell_renderer;
 DemoWindow* window = nullptr;
 
@@ -200,9 +201,9 @@ void GameLoop()
 		static float ff = 0.0f;
 		ff += float(nudge)*0.3f;
 		auto el = window->GetDocument()->GetElementById("exit");
-		el->SetProperty(Rml::PropertyId::MarginLeft, Rml::Property(ff, Rml::Property::PX));
+		el->SetProperty(Rml::Core::PropertyId::MarginLeft, Rml::Core::Property(ff, Rml::Core::Property::PX));
 		float f_left = el->GetAbsoluteLeft();
-		Rml::Log::Message(Rml::Log::LT_INFO, "margin-left: '%f'   abs: %f.", ff, f_left);
+		Rml::Core::Log::Message(Rml::Core::Log::LT_INFO, "margin-left: '%f'   abs: %f.", ff, f_left);
 		nudge = 0;
 	}
 
@@ -212,20 +213,20 @@ void GameLoop()
 		auto el = window->GetDocument()->GetElementById("fps");
 		float fps = float(count_frames) / dt;
 		count_frames = 0;
-		el->SetInnerRML(Rml::CreateString( 20, "FPS: %f", fps ));
+		el->SetInnerRML(Rml::Core::CreateString( 20, "FPS: %f", fps ));
 	}
 }
 
 
 
-class Event : public Rml::EventListener
+class Event : public Rml::Core::EventListener
 {
 public:
-	Event(const Rml::String& value) : value(value) {}
+	Event(const Rml::Core::String& value) : value(value) {}
 
-	void ProcessEvent(Rml::Event& event) override
+	void ProcessEvent(Rml::Core::Event& event) override
 	{
-		using namespace Rml;
+		using namespace Rml::Core;
 
 		if(value == "exit")
 			Shell::RequestExit();
@@ -234,46 +235,46 @@ public:
 		{
 		case EventId::Keydown:
 		{
-			Rml::Input::KeyIdentifier key_identifier = (Rml::Input::KeyIdentifier) event.GetParameter< int >("key_identifier", 0);
+			Rml::Core::Input::KeyIdentifier key_identifier = (Rml::Core::Input::KeyIdentifier) event.GetParameter< int >("key_identifier", 0);
 
-			if (key_identifier == Rml::Input::KI_SPACE)
+			if (key_identifier == Rml::Core::Input::KI_SPACE)
 			{
 				run_loop = !run_loop;
 			}
-			else if (key_identifier == Rml::Input::KI_RETURN)
+			else if (key_identifier == Rml::Core::Input::KI_RETURN)
 			{
 				run_loop = false;
 				single_loop = true;
 			}
-			else if (key_identifier == Rml::Input::KI_OEM_PLUS)
+			else if (key_identifier == Rml::Core::Input::KI_OEM_PLUS)
 			{
 				nudge = 1;
 			}
-			else if (key_identifier == Rml::Input::KI_OEM_MINUS)
+			else if (key_identifier == Rml::Core::Input::KI_OEM_MINUS)
 			{
 				nudge = -1;
 			}
-			else if (key_identifier == Rml::Input::KI_ESCAPE)
+			else if (key_identifier == Rml::Core::Input::KI_ESCAPE)
 			{
 				Shell::RequestExit();
 			}
-			else if (key_identifier == Rml::Input::KI_LEFT)
+			else if (key_identifier == Rml::Core::Input::KI_LEFT)
 			{
 				auto el = context->GetRootElement()->GetElementById("keyevent_response");
 				if (el) el->Animate("left", Property{ -200.f, Property::PX }, 0.5, Tween{ Tween::Cubic });
 			}
-			else if (key_identifier == Rml::Input::KI_RIGHT)
+			else if (key_identifier == Rml::Core::Input::KI_RIGHT)
 			{
 				auto el = context->GetRootElement()->GetElementById("keyevent_response");
 				if (el) el->Animate("left", Property{ 200.f, Property::PX }, 0.5, Tween{ Tween::Cubic });
 			}
-			else if (key_identifier == Rml::Input::KI_UP)
+			else if (key_identifier == Rml::Core::Input::KI_UP)
 			{
 				auto el = context->GetRootElement()->GetElementById("keyevent_response");
 				auto offset_right = Property{ 200.f, Property::PX };
 				if (el) el->Animate("left", Property{ 0.f, Property::PX }, 0.5, Tween{ Tween::Cubic }, 1, true, 0, &offset_right);
 			}
-			else if (key_identifier == Rml::Input::KI_DOWN)
+			else if (key_identifier == Rml::Core::Input::KI_DOWN)
 			{
 				auto el = context->GetRootElement()->GetElementById("keyevent_response");
 				if (el) el->Animate("left", Property{ 0.f, Property::PX }, 0.5, Tween{ Tween::Cubic });
@@ -307,19 +308,19 @@ public:
 		}
 	}
 
-	void OnDetach(Rml::Element* /*element*/) override { delete this; }
+	void OnDetach(Rml::Core::Element* /*element*/) override { delete this; }
 
 private:
-	Rml::String value;
+	Rml::Core::String value;
 };
 
 
-class EventInstancer : public Rml::EventListenerInstancer
+class EventInstancer : public Rml::Core::EventListenerInstancer
 {
 public:
 
 	/// Instances a new event handle for Invaders.
-	Rml::EventListener* InstanceEventListener(const Rml::String& value, Rml::Element* /*element*/) override
+	Rml::Core::EventListener* InstanceEventListener(const Rml::Core::String& value, Rml::Core::Element* /*element*/) override
 	{
 		return new Event(value);
 	}
@@ -359,36 +360,37 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	}
 
 	// RmlUi initialisation.
-	Rml::SetRenderInterface(&opengl_renderer);
+	Rml::Core::SetRenderInterface(&opengl_renderer);
 	opengl_renderer.SetViewport(width, height);
 
 	ShellSystemInterface system_interface;
-	Rml::SetSystemInterface(&system_interface);
+	Rml::Core::SetSystemInterface(&system_interface);
 
-	Rml::Initialise();
+	Rml::Core::Initialise();
 
 	// Create the main RmlUi context and set it on the shell's input layer.
-	context = Rml::CreateContext("main", Rml::Vector2i(width, height));
+	context = Rml::Core::CreateContext("main", Rml::Core::Vector2i(width, height));
 	if (context == nullptr)
 	{
-		Rml::Shutdown();
+		Rml::Core::Shutdown();
 		Shell::Shutdown();
 		return -1;
 	}
 
+	Rml::Controls::Initialise();
 	Rml::Debugger::Initialise(context);
 	Input::SetContext(context);
 	shell_renderer->SetContext(context);
 
 	EventInstancer event_listener_instancer;
-	Rml::Factory::RegisterEventListenerInstancer(&event_listener_instancer);
+	Rml::Core::Factory::RegisterEventListenerInstancer(&event_listener_instancer);
 
 	Shell::LoadFonts("assets/");
 
-	window = new DemoWindow("Animation sample", Rml::Vector2f(81, 100), context);
-	window->GetDocument()->AddEventListener(Rml::EventId::Keydown, new Event("hello"));
-	window->GetDocument()->AddEventListener(Rml::EventId::Keyup, new Event("hello"));
-	window->GetDocument()->AddEventListener(Rml::EventId::Animationend, new Event("hello"));
+	window = new DemoWindow("Animation sample", Rml::Core::Vector2f(81, 100), context);
+	window->GetDocument()->AddEventListener(Rml::Core::EventId::Keydown, new Event("hello"));
+	window->GetDocument()->AddEventListener(Rml::Core::EventId::Keyup, new Event("hello"));
+	window->GetDocument()->AddEventListener(Rml::Core::EventId::Animationend, new Event("hello"));
 
 
 	Shell::EventLoop(GameLoop);
@@ -396,7 +398,7 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	delete window;
 
 	// Shutdown RmlUi.
-	Rml::Shutdown();
+	Rml::Core::Shutdown();
 
 	Shell::CloseWindow();
 	Shell::Shutdown();

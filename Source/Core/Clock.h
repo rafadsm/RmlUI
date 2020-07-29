@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_CLOCK_H
-#define RMLUI_CORE_CLOCK_H
+#ifndef RMLUICORECLOCK_H
+#define RMLUICORECLOCK_H
 
 #include "../../Include/RmlUi/Core/Header.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	RmlUi's Interface to Time.
@@ -46,5 +47,7 @@ public:
 	RMLUICORE_API static double GetElapsedTime();
 };
 
-} // namespace Rml
+}
+}
+
 #endif

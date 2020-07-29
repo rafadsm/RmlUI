@@ -26,14 +26,16 @@
  *
  */
 
-#ifndef RMLUI_CORE_DECORATOR_H
-#define RMLUI_CORE_DECORATOR_H
+#ifndef RMLUICOREDECORATOR_H
+#define RMLUICOREDECORATOR_H
 
+#include <vector>
 #include "Header.h"
 #include "Texture.h"
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 class DecoratorInstancer;
 class Element;
@@ -90,8 +92,10 @@ private:
 	// Stores a list of textures in use by this decorator.
 	// Optimized for the common case of a single texture.
 	Texture first_texture;
-	Vector< Texture > additional_textures;
+	std::vector< Texture > additional_textures;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

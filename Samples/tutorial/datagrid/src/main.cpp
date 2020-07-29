@@ -10,6 +10,7 @@
  */
 
 #include <RmlUi/Core.h>
+#include <RmlUi/Controls.h>
 #include <RmlUi/Debugger.h>
 #include <Input.h>
 #include <Shell.h>
@@ -17,7 +18,7 @@
 #include "DecoratorInstancerDefender.h"
 #include "HighScores.h"
 
-Rml::Context* context = nullptr;
+Rml::Core::Context* context = nullptr;
 
 ShellRenderInterfaceExtensions *shell_renderer;
 
@@ -63,19 +64,20 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	}
 
 	// RmlUi initialisation.
-	Rml::SetRenderInterface(&opengl_renderer);
+	Rml::Core::SetRenderInterface(&opengl_renderer);
 	opengl_renderer.SetViewport(1024,768);
 
 	ShellSystemInterface system_interface;
-	Rml::SetSystemInterface(&system_interface);
+	Rml::Core::SetSystemInterface(&system_interface);
 
-	Rml::Initialise();
+	Rml::Core::Initialise();
+	Rml::Controls::Initialise();
 
 	// Create the main RmlUi context and set it on the shell's input layer.
-	context = Rml::CreateContext("main", Rml::Vector2i(1024, 768));
+	context = Rml::Core::CreateContext("main", Rml::Core::Vector2i(1024, 768));
 	if (context == nullptr)
 	{
-		Rml::Shutdown();
+		Rml::Core::Shutdown();
 		Shell::Shutdown();
 		return -1;
 	}
@@ -88,13 +90,13 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 
 	// Load the defender decorator.
 	DecoratorInstancerDefender decorator_instancer_defender;
-	Rml::Factory::RegisterDecoratorInstancer("defender", &decorator_instancer_defender);
+	Rml::Core::Factory::RegisterDecoratorInstancer("defender", &decorator_instancer_defender);
 
 	// Construct the high scores.
 	HighScores::Initialise();
 
 	// Load and show the tutorial document.
-	Rml::ElementDocument* document = context->LoadDocument("tutorial/datagrid/data/tutorial.rml");
+	Rml::Core::ElementDocument* document = context->LoadDocument("tutorial/datagrid/data/tutorial.rml");
 	if (document)
 	{
 		document->GetElementById("title")->SetInnerRML(document->GetTitle());
@@ -107,7 +109,7 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	HighScores::Shutdown();
 
 	// Shutdown RmlUi.
-	Rml::Shutdown();
+	Rml::Core::Shutdown();
 
 	Shell::CloseWindow();
 	Shell::Shutdown();

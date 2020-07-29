@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_INVADERS_ELEMENTGAME_H
-#define RMLUI_INVADERS_ELEMENTGAME_H
+#ifndef RMLUIINVADERSELEMENTGAME_H
+#define RMLUIINVADERSELEMENTGAME_H
 
 #include <RmlUi/Core/Element.h>
 #include <RmlUi/Core/EventListener.h>
@@ -38,19 +38,19 @@ class Game;
 	@author Peter Curry
  */
 
-class ElementGame : public Rml::Element, public Rml::EventListener
+class ElementGame : public Rml::Core::Element, public Rml::Core::EventListener
 {
 public:
-	ElementGame(const Rml::String& tag);
+	ElementGame(const Rml::Core::String& tag);
 	virtual ~ElementGame();
 
 	/// Intercepts and handles key events.
-	void ProcessEvent(Rml::Event& event) override;
+	void ProcessEvent(Rml::Core::Event& event) override;
 
 	/// Receive notifications when child elements are added
 	/// This will only get called when we're added to the tree,
 	/// which allows us to bind to onload
-	void OnChildAdd(Rml::Element* element) override;
+	void OnChildAdd(Rml::Core::Element* element) override;
 
 protected:
 	/// Updates the game.

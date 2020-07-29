@@ -29,6 +29,7 @@
 #include "../../Include/RmlUi/Core/Plugin.h"
 
 namespace Rml {
+namespace Core {
 
 Plugin::~Plugin()
 {
@@ -91,4 +92,5 @@ void Plugin::OnElementDestroy(Element* RMLUI_UNUSED_PARAMETER(element))
 	RMLUI_UNUSED(element);
 }
 
-} // namespace Rml
+}
+}

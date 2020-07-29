@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_HEADER_H
-#define RMLUI_CORE_HEADER_H
+#ifndef RMLUICOREHEADER_H
+#define RMLUICOREHEADER_H
 
 #include "Platform.h"
 

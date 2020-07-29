@@ -27,6 +27,7 @@
  */
 
 namespace Rml {
+namespace Core {
 
 // Lightweight, non-initialising constructor.
 template < typename ColourType, int AlphaDefault >
@@ -119,4 +120,5 @@ void RMLUICORE_API Colour< float, 1 >::operator*=(const Colour& rhs);
 template < >
 void RMLUICORE_API Colour< byte, 255 >::operator*=(const Colour& rhs);
 
-} // namespace Rml
+}
+}

@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_STREAMMEMORY_H
-#define RMLUI_CORE_STREAMMEMORY_H
+#ifndef RMLUICORESTREAMMEMORY_H
+#define RMLUICORESTREAMMEMORY_H
 
 #include "Header.h"
 #include "Stream.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	Memory Byte Stream Class 
@@ -112,5 +113,7 @@ private:
 	bool Reallocate(size_t size);
 };
 
-} // namespace Rml
+}
+}
+
 #endif

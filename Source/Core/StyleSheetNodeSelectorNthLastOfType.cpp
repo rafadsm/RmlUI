@@ -30,6 +30,7 @@
 #include "../../Include/RmlUi/Core/ElementText.h"
 
 namespace Rml {
+namespace Core {
 
 StyleSheetNodeSelectorNthLastOfType::StyleSheetNodeSelectorNthLastOfType()
 {
@@ -67,4 +68,5 @@ bool StyleSheetNodeSelectorNthLastOfType::IsApplicable(const Element* element, i
 	return IsNth(a, b, element_index);
 }
 
-} // namespace Rml
+}
+}

@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTTEXT_H
-#define RMLUI_CORE_ELEMENTTEXT_H
+#ifndef RMLUICOREELEMENTTEXT_H
+#define RMLUICOREELEMENTTEXT_H
 
 #include "Header.h"
 #include "Types.h"
 #include "Element.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	RmlUi's text-element interface.
@@ -85,5 +86,7 @@ public:
 	virtual void SuppressAutoLayout() = 0;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

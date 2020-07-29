@@ -30,6 +30,7 @@
 #include "../../Include/RmlUi/Core/DecoratorInstancer.h"
 
 namespace Rml {
+namespace Core {
 
 DecoratorInstancer::DecoratorInstancer() : properties(10, 10)
 {
@@ -62,4 +63,5 @@ const Sprite* DecoratorInstancerInterface::GetSprite(const String& name) const {
 	return style_sheet.GetSprite(name);
 }
 
-} // namespace Rml
+}
+}

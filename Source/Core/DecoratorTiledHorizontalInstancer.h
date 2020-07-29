@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_DECORATORTILEDHORIZONTALINSTANCER_H
-#define RMLUI_CORE_DECORATORTILEDHORIZONTALINSTANCER_H
+#ifndef RMLUICOREDECORATORTILEDHORIZONTALINSTANCER_H
+#define RMLUICOREDECORATORTILEDHORIZONTALINSTANCER_H
 
 #include "DecoratorTiledInstancer.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	@author Peter Curry
@@ -47,5 +48,7 @@ public:
 	SharedPtr<Decorator> InstanceDecorator(const String& name, const PropertyDictionary& properties, const DecoratorInstancerInterface& Interface) override;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

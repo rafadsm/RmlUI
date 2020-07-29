@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTENGINEDEFAULT_FONTFAMILY_H
-#define RMLUI_CORE_FONTENGINEDEFAULT_FONTFAMILY_H
+#ifndef RMLUICOREFONTFAMILY_H
+#define RMLUICOREFONTFAMILY_H
 
 #include "FontTypes.h"
 
 namespace Rml {
+namespace Core {
 
 class FontFace;
 class FontFaceHandleDefault;
@@ -64,9 +65,11 @@ public:
 protected:
 	String name;
 
-	using FontFaceList = Vector< UniquePtr<FontFace> >;
+	using FontFaceList = std::vector< UniquePtr<FontFace> >;
 	FontFaceList font_faces;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_RENDERINTERFACE_H
-#define RMLUI_CORE_RENDERINTERFACE_H
+#ifndef RMLUICORERENDERINTERFACE_H
+#define RMLUICORERENDERINTERFACE_H
 
 #include "Traits.h"
 #include "Header.h"
@@ -36,12 +36,13 @@
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 class Context;
 
 /**
 	The abstract base class for application-specific rendering implementation. Your application must provide a concrete
-	implementation of this class and install it through Rml::SetRenderInterface() in order for anything to be rendered.
+	implementation of this class and install it through Core::SetRenderInterface() in order for anything to be rendered.
 
 	@author Peter Curry
  */
@@ -122,5 +123,7 @@ private:
 	friend class Context;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

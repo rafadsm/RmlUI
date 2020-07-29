@@ -39,7 +39,7 @@ class RmlUiSFMLRendererGeometryHandler
 public:
 	GLuint VertexID, IndexID;
 	int NumVertices;
-	Rml::TextureHandle Texture;
+	Rml::Core::TextureHandle Texture;
 
 	RmlUiSFMLRendererGeometryHandler() : VertexID(0), IndexID(0), NumVertices(0), Texture(0)
 	{
@@ -71,6 +71,8 @@ RmlUiSFMLRenderer::RmlUiSFMLRenderer()
 void RmlUiSFMLRenderer::SetWindow(sf::RenderWindow *Window)
 {
 	MyWindow = Window;
+
+	Resize();
 }
 
 sf::RenderWindow *RmlUiSFMLRenderer::GetWindow()
@@ -78,17 +80,29 @@ sf::RenderWindow *RmlUiSFMLRenderer::GetWindow()
 	return MyWindow;
 }
 
+void RmlUiSFMLRenderer::Resize()
+{
+	static sf::View View;
+	View.setViewport(sf::FloatRect(0, (float)MyWindow->getSize().x, (float)MyWindow->getSize().y, 0));
+	MyWindow->setView(View);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, MyWindow->getSize().x, MyWindow->getSize().y, 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+
+	glViewport(0, 0, MyWindow->getSize().x, MyWindow->getSize().y);
+}
+
 // Called by RmlUi when it wants to render geometry that it does not wish to optimise.
-void RmlUiSFMLRenderer::RenderGeometry(Rml::Vertex* vertices, int num_vertices, int* indices, int num_indices, const Rml::TextureHandle texture, const Rml::Vector2f& translation)
+void RmlUiSFMLRenderer::RenderGeometry(Rml::Core::Vertex* vertices, int num_vertices, int* indices, int num_indices, const Rml::Core::TextureHandle texture, const Rml::Core::Vector2f& translation)
 {
 	MyWindow->pushGLStates();
-	initViewport();
-
 	glTranslatef(translation.x, translation.y, 0);
 
-	Rml::Vector<Rml::Vector2f> Positions(num_vertices);
-	Rml::Vector<Rml::Colourb> Colors(num_vertices);
-	Rml::Vector<Rml::Vector2f> TexCoords(num_vertices);
+	std::vector<Rml::Core::Vector2f> Positions(num_vertices);
+	std::vector<Rml::Core::Colourb> Colors(num_vertices);
+	std::vector<Rml::Core::Vector2f> TexCoords(num_vertices);
 
 	for(int i = 0; i < num_vertices; i++)
 	{
@@ -132,10 +146,10 @@ void RmlUiSFMLRenderer::RenderGeometry(Rml::Vertex* vertices, int num_vertices, 
 }
 
 // Called by RmlUi when it wants to compile geometry it believes will be static for the forseeable future.		
-Rml::CompiledGeometryHandle RmlUiSFMLRenderer::CompileGeometry(Rml::Vertex* vertices, int num_vertices, int* indices, int num_indices, const Rml::TextureHandle texture)
+Rml::Core::CompiledGeometryHandle RmlUiSFMLRenderer::CompileGeometry(Rml::Core::Vertex* vertices, int num_vertices, int* indices, int num_indices, const Rml::Core::TextureHandle texture)
 {
 #ifdef ENABLE_GLEW
-	Rml::Vector<RmlUiSFMLRendererVertex> Data(num_vertices);
+	std::vector<RmlUiSFMLRendererVertex> Data(num_vertices);
 
 	for(std::size_t i = 0; i < Data.size(); i++)
 	{
@@ -161,21 +175,19 @@ Rml::CompiledGeometryHandle RmlUiSFMLRenderer::CompileGeometry(Rml::Vertex* vert
 
 	Geometry->Texture = texture;
 
-	return (Rml::CompiledGeometryHandle)Geometry;
+	return (Rml::Core::CompiledGeometryHandle)Geometry;
 #else
-	return (Rml::CompiledGeometryHandle)nullptr;
+	return (Rml::Core::CompiledGeometryHandle)nullptr;
 #endif
 }
 
 // Called by RmlUi when it wants to render application-compiled geometry.		
-void RmlUiSFMLRenderer::RenderCompiledGeometry(Rml::CompiledGeometryHandle geometry, const Rml::Vector2f& translation)
+void RmlUiSFMLRenderer::RenderCompiledGeometry(Rml::Core::CompiledGeometryHandle geometry, const Rml::Core::Vector2f& translation)
 {
 #ifdef ENABLE_GLEW
 	RmlUiSFMLRendererGeometryHandler *RealGeometry = (RmlUiSFMLRendererGeometryHandler *)geometry;
 
 	MyWindow->pushGLStates();
-	initViewport();
-
 	glTranslatef(translation.x, translation.y, 0);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -218,7 +230,7 @@ void RmlUiSFMLRenderer::RenderCompiledGeometry(Rml::CompiledGeometryHandle geome
 }
 
 // Called by RmlUi when it wants to release application-compiled geometry.		
-void RmlUiSFMLRenderer::ReleaseCompiledGeometry(Rml::CompiledGeometryHandle geometry)
+void RmlUiSFMLRenderer::ReleaseCompiledGeometry(Rml::Core::CompiledGeometryHandle geometry)
 {
 #ifdef ENABLE_GLEW
 	delete (RmlUiSFMLRendererGeometryHandler *)geometry;
@@ -243,10 +255,10 @@ void RmlUiSFMLRenderer::SetScissorRegion(int x, int y, int width, int height)
 }
 
 // Called by RmlUi when a texture is required by the library.		
-bool RmlUiSFMLRenderer::LoadTexture(Rml::TextureHandle& texture_handle, Rml::Vector2i& texture_dimensions, const Rml::String& source)
+bool RmlUiSFMLRenderer::LoadTexture(Rml::Core::TextureHandle& texture_handle, Rml::Core::Vector2i& texture_dimensions, const Rml::Core::String& source)
 {
-	Rml::FileInterface* file_interface = Rml::GetFileInterface();
-	Rml::FileHandle file_handle = file_interface->Open(source);
+	Rml::Core::FileInterface* file_interface = Rml::Core::GetFileInterface();
+	Rml::Core::FileHandle file_handle = file_interface->Open(source);
 	if (!file_handle)
 		return false;
 
@@ -269,14 +281,14 @@ bool RmlUiSFMLRenderer::LoadTexture(Rml::TextureHandle& texture_handle, Rml::Vec
 	};
 	delete[] buffer;
 
-	texture_handle = (Rml::TextureHandle) texture;
-	texture_dimensions = Rml::Vector2i(texture->getSize().x, texture->getSize().y);
+	texture_handle = (Rml::Core::TextureHandle) texture;
+	texture_dimensions = Rml::Core::Vector2i(texture->getSize().x, texture->getSize().y);
 
 	return true;
 }
 
 // Called by RmlUi when a texture is required to be built from an internally-generated sequence of pixels.
-bool RmlUiSFMLRenderer::GenerateTexture(Rml::TextureHandle& texture_handle, const Rml::byte* source, const Rml::Vector2i& source_dimensions)
+bool RmlUiSFMLRenderer::GenerateTexture(Rml::Core::TextureHandle& texture_handle, const Rml::Core::byte* source, const Rml::Core::Vector2i& source_dimensions)
 {
 	sf::Texture *texture = new sf::Texture();
 
@@ -286,23 +298,13 @@ bool RmlUiSFMLRenderer::GenerateTexture(Rml::TextureHandle& texture_handle, cons
 	}
 
 	texture->update(source, source_dimensions.x, source_dimensions.y, 0, 0);
-	texture_handle = (Rml::TextureHandle)texture;
+	texture_handle = (Rml::Core::TextureHandle)texture;
 
 	return true;
 }
 
 // Called by RmlUi when a loaded texture is no longer required.		
-void RmlUiSFMLRenderer::ReleaseTexture(Rml::TextureHandle texture_handle)
+void RmlUiSFMLRenderer::ReleaseTexture(Rml::Core::TextureHandle texture_handle)
 {
 	delete (sf::Texture *)texture_handle;
-}
-
-void RmlUiSFMLRenderer::initViewport() {
-	glViewport(0, 0, MyWindow->getSize().x, MyWindow->getSize().y);
-
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-
-	glOrtho(0, MyWindow->getSize().x, MyWindow->getSize().y, 0, -1, 1);
-	glMatrixMode(GL_MODELVIEW);
 }

@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTEFFECTGLOW_H
-#define RMLUI_CORE_FONTEFFECTGLOW_H
+#ifndef RMLUICOREFONTEFFECTGLOW_H
+#define RMLUICOREFONTEFFECTGLOW_H
 
 #include "../../Include/RmlUi/Core/ConvolutionFilter.h"
 #include "../../Include/RmlUi/Core/FontEffect.h"
 #include "../../Include/RmlUi/Core/FontEffectInstancer.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	A font effect for rendering glow around text.
@@ -81,5 +82,7 @@ private:
 };
 
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -27,12 +27,12 @@
  */
 
 #include "ElementContextHook.h"
-#include "DebuggerPlugin.h"
+#include "Plugin.h"
 
 namespace Rml {
 namespace Debugger {
 
-ElementContextHook::ElementContextHook(const String& tag) : ElementDocument(tag)
+ElementContextHook::ElementContextHook(const Core::String& tag) : Core::ElementDocument(tag)
 {
 	debugger = nullptr;
 }
@@ -41,7 +41,7 @@ ElementContextHook::~ElementContextHook()
 {
 }
 
-void ElementContextHook::Initialise(DebuggerPlugin* _debugger)
+void ElementContextHook::Initialise(Plugin* _debugger)
 {
 	SetId("rmlui-debug-hook");
 	debugger = _debugger;

@@ -31,6 +31,7 @@
 #include "../../Include/RmlUi/Core/Log.h"
 
 namespace Rml {
+namespace Core {
 
 StyleSheetNodeSelectorNthChild::StyleSheetNodeSelectorNthChild()
 {
@@ -71,4 +72,5 @@ bool StyleSheetNodeSelectorNthChild::IsApplicable(const Element* element, int a,
 	return IsNth(a, b, element_index);
 }
 
-} // namespace Rml
+}
+}

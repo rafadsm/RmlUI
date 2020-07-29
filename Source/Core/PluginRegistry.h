@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_PLUGINREGISTRY_H
-#define RMLUI_CORE_PLUGINREGISTRY_H
+#ifndef RMLUICOREPLUGINREGISTRY_H
+#define RMLUICOREPLUGINREGISTRY_H
 
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 class Context;
 class Element;
@@ -73,5 +74,7 @@ private:
 	PluginRegistry();
 };
 
-} // namespace Rml
+}
+}
+
 #endif

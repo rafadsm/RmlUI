@@ -26,14 +26,16 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTENGINEDEFAULT_FONTTYPES_H
-#define RMLUI_CORE_FONTENGINEDEFAULT_FONTTYPES_H
+#ifndef RMLUICOREFONTTYPES_H
+#define RMLUICOREFONTTYPES_H
 
 #include "../../../Include/RmlUi/Core/Types.h"
 #include "../../../Include/RmlUi/Core/ComputedValues.h"
 #include "../../../Include/RmlUi/Core/FontGlyph.h"
 
 namespace Rml {
+namespace Core {
+
 
 using FontFaceHandleFreetype = uintptr_t;
 
@@ -48,5 +50,7 @@ struct FontMetrics
 	float underline_thickness;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

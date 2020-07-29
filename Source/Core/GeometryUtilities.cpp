@@ -33,6 +33,7 @@
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 GeometryUtilities::GeometryUtilities()
 {
@@ -79,8 +80,8 @@ void GeometryUtilities::GenerateQuad(Vertex* vertices, int* indices, const Vecto
 // Generates the geometry required to render a line above, below or through a line of text.
 void GeometryUtilities::GenerateLine(FontFaceHandle font_face_handle, Geometry* geometry, const Vector2f& position, int width, Style::TextDecoration height, const Colourb& colour)
 {
-	Vector< Vertex >& line_vertices = geometry->GetVertices();
-	Vector< int >& line_indices = geometry->GetIndices();
+	std::vector< Vertex >& line_vertices = geometry->GetVertices();
+	std::vector< int >& line_indices = geometry->GetIndices();
 	float underline_thickness = 0;
 	float underline_position = GetFontEngineInterface()->GetUnderline(font_face_handle, underline_thickness);
 	int size = GetFontEngineInterface()->GetSize(font_face_handle);
@@ -107,4 +108,5 @@ void GeometryUtilities::GenerateLine(FontFaceHandle font_face_handle, Geometry* 
 									);
 }
 
-} // namespace Rml
+}
+}

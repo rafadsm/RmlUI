@@ -30,6 +30,7 @@
 #include <string.h>
 
 namespace Rml {
+namespace Core {
 
 PropertyParserColour::PropertyParserColour()
 {
@@ -169,4 +170,5 @@ bool PropertyParserColour::ParseValue(Property& property, const String& value, c
 	return true;
 }
 
-} // namespace Rml
+}
+}

@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_DECORATORNINEPATCH_H
-#define RMLUI_CORE_DECORATORNINEPATCH_H
+#ifndef RMLUICOREDECORATORNINEPATCH_H
+#define RMLUICOREDECORATORNINEPATCH_H
 
 #include "../../Include/RmlUi/Core/Decorator.h"
 #include "../../Include/RmlUi/Core/DecoratorInstancer.h"
@@ -35,6 +35,7 @@
 #include "../../Include/RmlUi/Core/Spritesheet.h"
 
 namespace Rml {
+namespace Core {
 
 class DecoratorNinePatch : public Decorator
 {
@@ -42,7 +43,7 @@ public:
 	DecoratorNinePatch();
 	virtual ~DecoratorNinePatch();
 
-	bool Initialise(const Rectangle& rect_outer, const Rectangle& rect_inner, const Array<Property, 4>* _edges, const Texture& texture);
+	bool Initialise(const Rectangle& rect_outer, const Rectangle& rect_inner, const std::array<Property, 4>* _edges, const Texture& texture);
 
 	DecoratorDataHandle GenerateElementData(Element* element) const override;
 	void ReleaseElementData(DecoratorDataHandle element_data) const override;
@@ -51,7 +52,7 @@ public:
 
 private:
 	Rectangle rect_outer, rect_inner;
-	UniquePtr<Array<Property,4>> edges;
+	UniquePtr<std::array<Property,4>> edges;
 };
 
 
@@ -70,5 +71,7 @@ private:
 
 };
 
-} // namespace Rml
+}
+}
+
 #endif

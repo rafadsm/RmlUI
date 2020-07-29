@@ -30,6 +30,7 @@
 #include "../../Include/RmlUi/Core/PropertyDefinition.h"
 
 namespace Rml {
+namespace Core {
 
 FontEffectInstancer::FontEffectInstancer() : properties(10, 10)
 {
@@ -61,4 +62,5 @@ ShorthandId FontEffectInstancer::RegisterShorthand(const String& shorthand_name,
 	return properties.RegisterShorthand(shorthand_name, property_names, type);
 }
 
-} // namespace Rml
+}
+}

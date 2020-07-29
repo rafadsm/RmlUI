@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_PROPERTYPARSERCOLOUR_H
-#define RMLUI_CORE_PROPERTYPARSERCOLOUR_H
+#ifndef RMLUICOREPROPERTYPARSERCOLOUR_H
+#define RMLUICOREPROPERTYPARSERCOLOUR_H
 
 #include "../../Include/RmlUi/Core/PropertyParser.h"
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	A property parser that parses a colour value.
@@ -58,5 +59,7 @@ private:
 	ColourMap html_colours;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

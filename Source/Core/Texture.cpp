@@ -31,6 +31,7 @@
 #include "TextureResource.h"
 
 namespace Rml {
+namespace Core {
 
 // Attempts to load a texture.
 void Texture::Set(const String& source, const String& source_path)
@@ -40,7 +41,7 @@ void Texture::Set(const String& source, const String& source_path)
 
 void Texture::Set(const String& name, const TextureCallback& callback)
 {
-	resource = MakeShared<TextureResource>();
+	resource = std::make_shared<TextureResource>();
 	resource->Set(name, callback);
 }
 
@@ -82,4 +83,5 @@ Texture::operator bool() const
 	return static_cast<bool>(resource);
 }
 
-} // namespace Rml
+}
+}

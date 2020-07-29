@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_STYLESHEETNODESELECTORNTHLASTOFTYPE_H
-#define RMLUI_CORE_STYLESHEETNODESELECTORNTHLASTOFTYPE_H
+#ifndef RMLUICORESTYLESHEETNODESELECTORNTHLASTOFTYPE_H
+#define RMLUICORESTYLESHEETNODESELECTORNTHLASTOFTYPE_H
 
 #include "StyleSheetNodeSelector.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	A node selector for the nth-last generic child of its type.
@@ -49,5 +50,7 @@ public:
 	bool IsApplicable(const Element* element, int a, int b) override;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

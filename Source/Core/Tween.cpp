@@ -28,9 +28,11 @@
 
 #include "../../Include/RmlUi/Core/Tween.h"
 #include "../../Include/RmlUi/Core/Math.h"
+#include <array>
 #include <utility>
 
 namespace Rml {
+namespace Core {
 
 namespace TweenFunctions {
 
@@ -152,7 +154,7 @@ bool Tween::operator!=(const Tween& other) const
 
 String Tween::to_string() const
 {
-	static const Array<String, size_t(Count)> type_str = { { "none", "back", "bounce", "circular", "cubic", "elastic", "exponential", "linear", "quadratic", "quartic", "quintic", "sine", "callback" } };
+	static const std::array<String, size_t(Count)> type_str = { { "none", "back", "bounce", "circular", "cubic", "elastic", "exponential", "linear", "quadratic", "quartic", "quintic", "sine", "callback" } };
 
 	if (size_t(type_in) < type_str.size() && size_t(type_out) < type_str.size())
 	{
@@ -236,4 +238,5 @@ float Tween::in_out(float t) const
 		return 0.5f + out(2.0f * t - 1.0f) * 0.5f;
 }
 
-} // namespace Rml
+}
+}

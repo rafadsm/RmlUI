@@ -28,13 +28,14 @@
 
 #include "../../Include/RmlUi/Core/ElementScroll.h"
 #include "LayoutEngine.h"
-#include "WidgetScroll.h"
+#include "WidgetSliderScroll.h"
 #include "../../Include/RmlUi/Core/Element.h"
 #include "../../Include/RmlUi/Core/ElementUtilities.h"
 #include "../../Include/RmlUi/Core/Event.h"
 #include "../../Include/RmlUi/Core/Factory.h"
 
 namespace Rml {
+namespace Core {
 
 ElementScroll::ElementScroll(Element* _element)
 {
@@ -237,8 +238,8 @@ bool ElementScroll::CreateScrollbar(Orientation orientation)
 	scrollbars[orientation].element = scrollbar_element.get();
 	scrollbars[orientation].element->SetProperty(PropertyId::Clip, Property(1, Property::NUMBER));
 
-	scrollbars[orientation].widget = new WidgetScroll(scrollbars[orientation].element);
-	scrollbars[orientation].widget->Initialise(orientation == VERTICAL ? WidgetScroll::VERTICAL : WidgetScroll::HORIZONTAL);
+	scrollbars[orientation].widget = new WidgetSliderScroll(scrollbars[orientation].element);
+	scrollbars[orientation].widget->Initialise(orientation == VERTICAL ? WidgetSlider::VERTICAL : WidgetSlider::HORIZONTAL);
 
 	Element* child = element->AppendChild(std::move(scrollbar_element), false);
 
@@ -281,4 +282,5 @@ ElementScroll::Scrollbar::~Scrollbar()
 	}
 }
 
-} // namespace Rml
+}
+}

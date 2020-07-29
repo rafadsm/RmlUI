@@ -31,7 +31,7 @@
 #include <algorithm>
 
 namespace Rml {
-
+namespace Core {
 namespace GeometryDatabase {
 
 class Database {
@@ -99,9 +99,9 @@ public:
 private:
 	// List of all active geometry, in addition to free slots.
 	// Free slots (as defined by the 'free_list') may contain dangling pointers and must not be dereferenced.
-	Vector<Geometry*> geometry_list;
+	std::vector<Geometry*> geometry_list;
 	// Declares free slots in the 'geometry_list' as indices.
-	Vector<GeometryDatabaseHandle> free_list;
+	std::vector<GeometryDatabaseHandle> free_list;
 };
 
 
@@ -130,7 +130,7 @@ void ReleaseAll()
 
 static class TestGeometryDatabase {
 private:
-	Vector<Geometry> geometry_list;
+	std::vector<Geometry> geometry_list;
 
 	bool list_database_equivalent()
 	{
@@ -180,4 +180,5 @@ public:
 #endif
 
 }
-} // namespace Rml
+}
+}

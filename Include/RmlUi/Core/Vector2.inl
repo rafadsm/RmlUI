@@ -27,6 +27,7 @@
  */
 
 namespace Rml {
+namespace Core {
 
 // Initialising constructor.
 template < typename Type >
@@ -238,4 +239,5 @@ Vector2< Type >::operator Type* ()
 	return &x;
 }
 
-} // namespace Rml
+}
+}

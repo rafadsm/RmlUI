@@ -26,32 +26,32 @@
  *
  */
 
-#ifndef RMLUI_INVADERS_HIGHSCORES_H
-#define RMLUI_INVADERS_HIGHSCORES_H
+#ifndef RMLUIINVADERSHIGHSCORES_H
+#define RMLUIINVADERSHIGHSCORES_H
 
-#include <RmlUi/Core/Elements/DataSource.h>
+#include <RmlUi/Controls/DataSource.h>
 #include <RmlUi/Core/Types.h>
 
 const int NUM_SCORES = 10;
 
-class HighScores : public Rml::DataSource
+class HighScores : public Rml::Controls::DataSource
 {
 public:
 	static void Initialise();
 	static void Shutdown();
 
-	void GetRow(Rml::StringList& row, const Rml::String& table, int row_index, const Rml::StringList& columns);
-	int GetNumRows(const Rml::String& table);
+	void GetRow(Rml::Core::StringList& row, const Rml::Core::String& table, int row_index, const Rml::Core::StringList& columns);
+	int GetNumRows(const Rml::Core::String& table);
 
 	static int GetHighScore();
 
 	/// Two functions to add a score to the chart.
 	/// Adds a full score, including a name. This won't prompt the user to enter their name.
-	static void SubmitScore(const Rml::String& name, const Rml::Colourb& colour, int wave, int score);
+	static void SubmitScore(const Rml::Core::String& name, const Rml::Core::Colourb& colour, int wave, int score);
 	/// Adds a score, and causes an input field to appear to request the user for their name.
-	static void SubmitScore(const Rml::Colourb& colour, int wave, int score);
+	static void SubmitScore(const Rml::Core::Colourb& colour, int wave, int score);
 	/// Sets the name of the last player to submit their score.
-	static void SubmitName(const Rml::String& name);
+	static void SubmitName(const Rml::Core::String& name);
 
 private:
 	HighScores();
@@ -59,15 +59,15 @@ private:
 
 	static HighScores* instance;
 
-	void SubmitScore(const Rml::String& name, const Rml::Colourb& colour, int wave, int score, bool name_required);
+	void SubmitScore(const Rml::Core::String& name, const Rml::Core::Colourb& colour, int wave, int score, bool name_required);
 	void LoadScores();
 	void SaveScores();
 
 	struct Score
 	{
-		Rml::String name;
+		Rml::Core::String name;
 		bool name_required;
-		Rml::Colourb colour;
+		Rml::Core::Colourb colour;
 		int score;
 		int wave;
 	};

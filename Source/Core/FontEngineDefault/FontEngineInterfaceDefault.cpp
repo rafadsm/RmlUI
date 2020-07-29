@@ -31,6 +31,7 @@
 #include "FontEngineInterfaceDefault.h"
 
 namespace Rml {
+namespace Core {
 
 FontEngineInterfaceDefault::FontEngineInterfaceDefault()
 {
@@ -113,4 +114,5 @@ int FontEngineInterfaceDefault::GetVersion(FontFaceHandle handle)
 	return handle_default->GetVersion();
 }
 
-} // namespace Rml
+}
+}

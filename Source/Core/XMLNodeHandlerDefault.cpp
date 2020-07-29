@@ -33,10 +33,10 @@
 #include "../../Include/RmlUi/Core/Factory.h"
 #include "../../Include/RmlUi/Core/Profiling.h"
 #include "../../Include/RmlUi/Core/XMLParser.h"
-#include "../../Include/RmlUi/Core/ElementUtilities.h"
 
 
 namespace Rml {
+namespace Core {
 
 XMLNodeHandlerDefault::XMLNodeHandlerDefault()
 {
@@ -61,7 +61,7 @@ Element* XMLNodeHandlerDefault::ElementStart(XMLParser* parser, const String& na
 		return nullptr;
 	}
 
-	// Move and append the element to the parent
+	// Add the element to its parent and remove the reference
 	Element* result = parent->AppendChild(std::move(element));
 
 	return result;
@@ -75,24 +75,17 @@ bool XMLNodeHandlerDefault::ElementEnd(XMLParser* RMLUI_UNUSED_PARAMETER(parser)
 	return true;
 }
 
-bool XMLNodeHandlerDefault::ElementData(XMLParser* parser, const String& data, XMLDataType type)
+bool XMLNodeHandlerDefault::ElementData(XMLParser* parser, const String& data)
 {
 	RMLUI_ZoneScopedC(0x006400);
 
 	// Determine the parent
 	Element* parent = parser->GetParseFrame()->element;
-	RMLUI_ASSERT(parent);
-
-	if (type == XMLDataType::InnerXML)
-	{
-		// Structural data views use the raw inner xml contents of the node, submit them now.
-		if (ElementUtilities::ApplyStructuralDataViews(parent, data))
-			return true;
-	}
 
 	// Parse the text into the element
 	return Factory::InstanceElementText(parent, data);
 }
 
 
-} // namespace Rml
+}
+}

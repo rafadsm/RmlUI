@@ -31,9 +31,10 @@
 
 
 namespace Rml {
+namespace Core {
 
 // An EventId is an index into the specifications vector.
-static Vector<EventSpecification> specifications = { { EventId::Invalid, "invalid", false, false, DefaultActionPhase::None } };
+static std::vector<EventSpecification> specifications = { { EventId::Invalid, "invalid", false, false, DefaultActionPhase::None } };
 
 // Reverse lookup map from event type to id.
 static UnorderedMap<String, EventId> type_lookup;
@@ -179,4 +180,5 @@ EventId InsertOrReplaceCustom(const String& event_type, bool interruptible, bool
 
 
 }
-} // namespace Rml
+}
+}

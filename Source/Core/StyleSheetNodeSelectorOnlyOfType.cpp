@@ -30,6 +30,7 @@
 #include "../../Include/RmlUi/Core/ElementText.h"
 
 namespace Rml {
+namespace Core {
 
 StyleSheetNodeSelectorOnlyOfType::StyleSheetNodeSelectorOnlyOfType()
 {
@@ -69,4 +70,5 @@ bool StyleSheetNodeSelectorOnlyOfType::IsApplicable(const Element* element, int 
 	return true;
 }
 
-} // namespace Rml
+}
+}

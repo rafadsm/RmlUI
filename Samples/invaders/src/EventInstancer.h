@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_INVADERS_EVENTINSTANCER_H
-#define RMLUI_INVADERS_EVENTINSTANCER_H
+#ifndef RMLUIINVADERSEVENTINSTANCER_H
+#define RMLUIINVADERSEVENTINSTANCER_H
 
 #include <RmlUi/Core/EventListenerInstancer.h>
 
@@ -35,14 +35,14 @@
 	@author Peter Curry
  */
 
-class EventInstancer : public Rml::EventListenerInstancer
+class EventInstancer : public Rml::Core::EventListenerInstancer
 {
 public:
 	EventInstancer();
 	virtual ~EventInstancer();
 
 	/// Instances a new event handle for Invaders.
-	Rml::EventListener* InstanceEventListener(const Rml::String& value, Rml::Element* element) override;
+	Rml::Core::EventListener* InstanceEventListener(const Rml::Core::String& value, Rml::Core::Element* element) override;
 
 };
 

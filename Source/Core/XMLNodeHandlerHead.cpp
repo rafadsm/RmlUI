@@ -38,6 +38,7 @@
 #include "../../Include/RmlUi/Core/URL.h"
 
 namespace Rml {
+namespace Core {
 
 XMLNodeHandlerHead::XMLNodeHandlerHead()
 {
@@ -119,9 +120,8 @@ bool XMLNodeHandlerHead::ElementEnd(XMLParser* parser, const String& name)
 	return true;
 }
 
-bool XMLNodeHandlerHead::ElementData(XMLParser* parser, const String& data, XMLDataType RMLUI_UNUSED_PARAMETER(type))
+bool XMLNodeHandlerHead::ElementData(XMLParser* parser, const String& data)
 {
-	RMLUI_UNUSED(type);
 	const String& tag = parser->GetParseFrame()->tag;
 
 	// Store the title
@@ -146,4 +146,5 @@ bool XMLNodeHandlerHead::ElementData(XMLParser* parser, const String& data, XMLD
 	return true;
 }
 
-} // namespace Rml
+}
+}

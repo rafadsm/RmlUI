@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_EVENTLISTENER_H
-#define RMLUI_CORE_EVENTLISTENER_H
+#ifndef RMLUICOREEVENTLISTENER_H
+#define RMLUICOREEVENTLISTENER_H
 
 #include "Header.h"
 #include "Event.h"
 #include "ObserverPtr.h"
 
 namespace Rml {
+namespace Core {
 
 class Event;
 class Element;
@@ -65,5 +66,7 @@ public:
 	}
 };
 
-} // namespace Rml
+}
+}
+
 #endif

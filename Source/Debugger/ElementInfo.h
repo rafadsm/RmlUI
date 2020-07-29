@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_DEBUGGER_ELEMENTINFO_H
-#define RMLUI_DEBUGGER_ELEMENTINFO_H
+#ifndef RMLUIDEBUGGERELEMENTINFO_H
+#define RMLUIDEBUGGERELEMENTINFO_H
 
 #include "../../Include/RmlUi/Core/ElementDocument.h"
 #include "../../Include/RmlUi/Core/EventListener.h"
@@ -35,19 +35,19 @@
 namespace Rml {
 namespace Debugger {
 
-typedef Pair< String, const Property* > NamedProperty;
-typedef Vector< NamedProperty > NamedPropertyList;
+typedef std::pair< Core::String, const Core::Property* > NamedProperty;
+typedef std::vector< NamedProperty > NamedPropertyList;
 
 /**
 	@author Robert Curry
  */
 
-class ElementInfo : public ElementDocument, public EventListener
+class ElementInfo : public Core::ElementDocument, public Core::EventListener
 {
 public:
-	RMLUI_RTTI_DefineWithParent(ElementInfo, ElementDocument)
+	RMLUI_RTTI_DefineWithParent(ElementInfo, Core::ElementDocument)
 
-	ElementInfo(const String& tag);
+	ElementInfo(const Core::String& tag);
 	~ElementInfo();
 
 	/// Initialises the info element.
@@ -57,30 +57,30 @@ public:
 	void Reset();
 
 	/// Called when an element is destroyed.
-	void OnElementDestroy(Element* element);
+	void OnElementDestroy(Core::Element* element);
 
 	void RenderHoverElement();
 	void RenderSourceElement();
 
 protected:
-	void ProcessEvent(Event& event) override;
+	void ProcessEvent(Core::Event& event) override;
 	/// Updates the element info if changed
 	void OnUpdate() override;
 
 private:
-	void SetSourceElement(Element* new_source_element);
+	void SetSourceElement(Core::Element* new_source_element);
 	void UpdateSourceElement();
 
-	void BuildElementPropertiesRML(String& property_rml, Element* element, Element* primary_element);
-	void BuildPropertyRML(String& property_rml, const String& name, const Property* property);
+	void BuildElementPropertiesRML(Core::String& property_rml, Core::Element* element, Core::Element* primary_element);
+	void BuildPropertyRML(Core::String& property_rml, const Core::String& name, const Core::Property* property);
 
 	void UpdateTitle();
 
-	bool IsDebuggerElement(Element* element);
+	bool IsDebuggerElement(Core::Element* element);
 
 	double previous_update_time;
 
-	String attributes_rml, properties_rml, events_rml, ancestors_rml, children_rml;
+	Core::String attributes_rml, properties_rml, events_rml, ancestors_rml, children_rml;
 
 	// Enables or disables the selection of elements in user context.
 	bool enable_element_select;
@@ -93,11 +93,11 @@ private:
 	
 	bool title_dirty;
 
-	Element* hover_element;
-	Element* source_element;
+	Core::Element* hover_element;
+	Core::Element* source_element;
 };
 
 }
-} // namespace Rml
+}
 
 #endif

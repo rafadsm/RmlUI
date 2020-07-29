@@ -1,9 +1,8 @@
-#ifndef RMLUI_LUAINVADERS_ELEMENTGAMEINSTANCER_H
-#define RMLUI_LUAINVADERS_ELEMENTGAMEINSTANCER_H
-
+#ifndef ELEMENTGAMEINSTANCER_H
+#define ELEMENTGAMEINSTANCER_H
 #include <RmlUi/Core/ElementInstancer.h>
 
-class ElementGameInstancer : public Rml::ElementInstancer
+class ElementGameInstancer : public Rml::Core::ElementInstancer
 {
 public:
 	virtual ~ElementGameInstancer();
@@ -11,11 +10,11 @@ public:
 	/// Instances an element given the tag name and attributes
 	/// @param tag Name of the element to instance
 	/// @param attributes vector of name value pairs
-    Rml::ElementPtr InstanceElement(Rml::Element* parent, const Rml::String& tag, const Rml::XMLAttributes& attributes) override;
+    Rml::Core::ElementPtr InstanceElement(Rml::Core::Element* parent, const Rml::Core::String& tag, const Rml::Core::XMLAttributes& attributes) override;
 
 	/// Releases the given element
 	/// @param element to release
-	void ReleaseElement(Rml::Element* element) override;
+	void ReleaseElement(Rml::Core::Element* element) override;
 };
 
 #endif

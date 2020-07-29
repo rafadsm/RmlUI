@@ -29,6 +29,7 @@
 #include "../../Include/RmlUi/Core/FileInterface.h"
 
 namespace Rml {
+namespace Core {
 
 FileInterface::FileInterface()
 {
@@ -48,4 +49,5 @@ size_t FileInterface::Length(FileHandle file)
     return length;
 }
 
-} // namespace Rml
+}
+}

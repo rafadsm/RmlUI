@@ -31,6 +31,7 @@
 #include "../../Include/RmlUi/Core/StyleSheetSpecification.h"
 
 namespace Rml {
+namespace Core {
 
 PropertyDefinition::PropertyDefinition(PropertyId id, const String& _default_value, bool _inherited, bool _forces_layout) 
 	: id(id), default_value(_default_value, Property::UNKNOWN), relative_target(RelativeTarget::None)
@@ -208,4 +209,5 @@ PropertyDefinition & PropertyDefinition::SetRelativeTarget(RelativeTarget relati
 	return *this;
 }
 
-} // namespace Rml
+}
+}

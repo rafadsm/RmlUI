@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_LOG_H
-#define RMLUI_CORE_LOG_H
+#ifndef RMLUICORELOG_H
+#define RMLUICORELOG_H
 
 #include "Header.h"
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	RmlUi logging API.
@@ -73,5 +74,7 @@ public:
 	static void ParseError(const String& filename, int line_number, const char* format, ...);
 };
 
-} // namespace Rml
+}
+}
+
 #endif

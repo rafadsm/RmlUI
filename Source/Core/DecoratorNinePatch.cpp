@@ -33,6 +33,7 @@
 #include "../../Include/RmlUi/Core/PropertyDefinition.h"
 
 namespace Rml {
+namespace Core {
 
 DecoratorNinePatch::DecoratorNinePatch()
 {
@@ -42,13 +43,13 @@ DecoratorNinePatch::~DecoratorNinePatch()
 {
 }
 
-bool DecoratorNinePatch::Initialise(const Rectangle& _rect_outer, const Rectangle& _rect_inner, const Array<Property, 4>* _edges, const Texture& _texture)
+bool DecoratorNinePatch::Initialise(const Rectangle& _rect_outer, const Rectangle& _rect_inner, const std::array<Property, 4>* _edges, const Texture& _texture)
 {
 	rect_outer = _rect_outer;
 	rect_inner = _rect_inner;
 
 	if (_edges)
-		edges = MakeUnique< Array<Property, 4> >(*_edges);
+		edges = std::make_unique< std::array<Property, 4> >(*_edges);
 
 	int texture_index = AddTexture(_texture);
 	return (texture_index >= 0);
@@ -127,8 +128,8 @@ DecoratorDataHandle DecoratorNinePatch::GenerateElementData(Element* element) co
 
 	/* Now we have all the coordinates we need. Expand the diagonal vertices to the 16 individual vertices. */
 
-	Vector<Vertex>& vertices = data->GetVertices();
-	Vector<int>& indices = data->GetIndices();
+	std::vector<Vertex>& vertices = data->GetVertices();
+	std::vector<int>& indices = data->GetIndices();
 
 	vertices.resize(4 * 4);
 
@@ -196,12 +197,12 @@ DecoratorNinePatchInstancer::~DecoratorNinePatchInstancer()
 {
 }
 
-SharedPtr<Decorator> DecoratorNinePatchInstancer::InstanceDecorator(const String& RMLUI_UNUSED_PARAMETER(name), const PropertyDictionary& properties, const DecoratorInstancerInterface& Interface)
+SharedPtr<Decorator> DecoratorNinePatchInstancer::InstanceDecorator(const String& RMLUI_UNUSED_PARAMETER(name), const PropertyDictionary& properties, const DecoratorInstancerInterface& interface)
 {
 	RMLUI_UNUSED(name);
 
 	bool edges_set = false;
-	Array<Property,4> edges;
+	std::array<Property,4> edges;
 	for (int i = 0; i < 4; i++)
 	{
 		edges[i] = *properties.GetProperty(edge_ids[i]);
@@ -216,7 +217,7 @@ SharedPtr<Decorator> DecoratorNinePatchInstancer::InstanceDecorator(const String
 
 	{
 		const String sprite_name = properties.GetProperty(sprite_outer_id)->Get< String >();
-		sprite_outer = Interface.GetSprite(sprite_name);
+		sprite_outer = interface.GetSprite(sprite_name);
 		if (!sprite_outer)
 		{
 			Log::Message(Log::LT_WARNING, "Could not find sprite named '%s' in ninepatch decorator.", sprite_name.c_str());
@@ -225,7 +226,7 @@ SharedPtr<Decorator> DecoratorNinePatchInstancer::InstanceDecorator(const String
 	}
 	{
 		const String sprite_name = properties.GetProperty(sprite_inner_id)->Get< String >();
-		sprite_inner = Interface.GetSprite(sprite_name);
+		sprite_inner = interface.GetSprite(sprite_name);
 		if (!sprite_inner)
 		{
 			Log::Message(Log::LT_WARNING, "Could not find sprite named '%s' in ninepatch decorator.", sprite_name.c_str());
@@ -239,7 +240,7 @@ SharedPtr<Decorator> DecoratorNinePatchInstancer::InstanceDecorator(const String
 		return nullptr;
 	}
 
-	auto decorator = MakeShared<DecoratorNinePatch>();
+	auto decorator = std::make_shared<DecoratorNinePatch>();
 
 	if (!decorator->Initialise(sprite_outer->rectangle, sprite_inner->rectangle, (edges_set ? &edges : nullptr), sprite_outer->sprite_sheet->texture))
 		return nullptr;
@@ -247,4 +248,5 @@ SharedPtr<Decorator> DecoratorNinePatchInstancer::InstanceDecorator(const String
 	return decorator;
 }
 
-} // namespace Rml
+}
+}

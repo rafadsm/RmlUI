@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_GEOMETRYUTILITIES_H
-#define RMLUI_CORE_GEOMETRYUTILITIES_H
+#ifndef RMLUICOREGEOMETRYUTILITIES_H
+#define RMLUICOREGEOMETRYUTILITIES_H
 
 #include "Header.h"
 #include "Types.h"
@@ -35,6 +35,7 @@
 #include "ComputedValues.h"
 
 namespace Rml {
+namespace Core {
 
 class Geometry;
 
@@ -79,5 +80,7 @@ private:
 	~GeometryUtilities();
 };
 
-} // namespace Rml
+}
+}
+
 #endif

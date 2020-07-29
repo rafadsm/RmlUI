@@ -33,6 +33,7 @@
 #include "../../Include/RmlUi/Core/Factory.h"
 
 namespace Rml {
+namespace Core {
 
 XMLNodeHandlerBody::XMLNodeHandlerBody()
 {
@@ -42,9 +43,10 @@ XMLNodeHandlerBody::~XMLNodeHandlerBody()
 {
 }
 
-Element* XMLNodeHandlerBody::ElementStart(XMLParser* parser, const String& RMLUI_UNUSED_PARAMETER(name), const XMLAttributes& attributes)
+Element* XMLNodeHandlerBody::ElementStart(XMLParser* parser, const String& RMLUI_UNUSED_ASSERT_PARAMETER(name), const XMLAttributes& attributes)
 {
-	RMLUI_UNUSED(name);
+	RMLUI_UNUSED_ASSERT(name);
+	RMLUI_ASSERT(name == "body");
 
 	Element* element = parser->GetParseFrame()->element;
 
@@ -74,10 +76,10 @@ bool XMLNodeHandlerBody::ElementEnd(XMLParser* RMLUI_UNUSED_PARAMETER(parser), c
 	return true;
 }
 
-bool XMLNodeHandlerBody::ElementData(XMLParser* parser, const String& data, XMLDataType RMLUI_UNUSED_PARAMETER(type))
+bool XMLNodeHandlerBody::ElementData(XMLParser* parser, const String& data)
 {
-	RMLUI_UNUSED(type);
 	return Factory::InstanceElementText(parser->GetParseFrame()->element, data);
 }
 
-} // namespace Rml
+}
+}

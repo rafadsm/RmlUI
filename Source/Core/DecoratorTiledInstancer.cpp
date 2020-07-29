@@ -31,6 +31,7 @@
 #include "../../Include/RmlUi/Core/Spritesheet.h"
 
 namespace Rml {
+namespace Core {
 
 DecoratorTiledInstancer::DecoratorTiledInstancer(size_t num_tiles)
 {
@@ -193,4 +194,5 @@ bool DecoratorTiledInstancer::GetTileProperties(DecoratorTiled::Tile* tiles, Tex
 	return true;
 }
 
-} // namespace Rml
+}
+}

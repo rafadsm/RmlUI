@@ -30,6 +30,8 @@
 #include "ComputeProperty.h"
 
 namespace Rml {
+namespace Core {
+
 
 const Style::ComputedValues DefaultComputedValues = Style::ComputedValues{};
 
@@ -298,4 +300,5 @@ Style::LengthPercentage ComputeOrigin(const Property* property, float font_size,
 }
 
 
-} // namespace Rml
+}
+}

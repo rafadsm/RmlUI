@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_GEOMETRY_H
-#define RMLUI_CORE_GEOMETRY_H
+#ifndef RMLUICOREGEOMETRY_H
+#define RMLUICOREGEOMETRY_H
 
 #include "Header.h"
 #include "Vertex.h"
 #include <stdint.h>
 
 namespace Rml {
+namespace Core {
 
 class Context;
 class Element;
@@ -71,10 +72,10 @@ public:
 
 	/// Returns the geometry's vertices. If these are written to, Release() should be called to force a recompile.
 	/// @return The geometry's vertex array.
-	Vector< Vertex >& GetVertices();
+	std::vector< Vertex >& GetVertices();
 	/// Returns the geometry's indices. If these are written to, Release() should be called to force a recompile.
 	/// @return The geometry's index array.
-	Vector< int >& GetIndices();
+	std::vector< int >& GetIndices();
 
 	/// Gets the geometry's texture.
 	/// @return The geometry's texture.
@@ -96,8 +97,8 @@ private:
 	Context* host_context = nullptr;
 	Element* host_element = nullptr;
 
-	Vector< Vertex > vertices;
-	Vector< int > indices;
+	std::vector< Vertex > vertices;
+	std::vector< int > indices;
 	const Texture* texture = nullptr;
 
 	CompiledGeometryHandle compiled_geometry = 0;
@@ -106,7 +107,9 @@ private:
 	GeometryDatabaseHandle database_handle;
 };
 
-using GeometryList = Vector< Geometry >;
+using GeometryList = std::vector< Geometry >;
 
-} // namespace Rml
+}
+}
+
 #endif

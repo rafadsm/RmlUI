@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_PROPERTYDEFINITION_H
-#define RMLUI_CORE_PROPERTYDEFINITION_H
+#ifndef RMLUICOREPROPERTYDEFINITION_H
+#define RMLUICOREPROPERTYDEFINITION_H
 
 #include "Header.h"
 #include "Property.h"
 #include "PropertyParser.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	@author Peter Curry
@@ -97,10 +98,12 @@ private:
 		ParameterMap parameters;
 	};
 
-	Vector< ParserState > parsers;
+	std::vector< ParserState > parsers;
 
 	RelativeTarget relative_target;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

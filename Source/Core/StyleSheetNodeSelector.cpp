@@ -29,6 +29,7 @@
 #include "StyleSheetNodeSelector.h"
 
 namespace Rml {
+namespace Core {
 
 StyleSheetNodeSelector::StyleSheetNodeSelector()
 {
@@ -49,4 +50,5 @@ bool StyleSheetNodeSelector::IsNth(int a, int b, int count)
 	return (x >= 0 && x * a + b == count);
 }
 
-} // namespace Rml
+}
+}

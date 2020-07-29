@@ -33,7 +33,7 @@
 
 namespace FontProviderBitmap
 {
-	static Rml::Vector<Rml::UniquePtr<FontFaceBitmap>> fonts;
+	static std::vector<std::unique_ptr<FontFaceBitmap>> fonts;
 
 
 	void Initialise()
@@ -48,11 +48,11 @@ namespace FontProviderBitmap
 	bool LoadFontFace(const String& file_name)
 	{
 		// Load the xml meta file into memory
-		Rml::UniquePtr<byte[]> data;
+		std::unique_ptr<byte[]> data;
 		size_t length = 0;
 
 		{
-			auto file_interface = Rml::GetFileInterface();
+			auto file_interface = Rml::Core::GetFileInterface();
 			auto handle = file_interface->Open(file_name);
 			if (!handle)
 				return false;
@@ -73,7 +73,7 @@ namespace FontProviderBitmap
 		FontParserBitmap parser;
 
 		{
-			auto stream = Rml::MakeUnique<Rml::StreamMemory>(data.get(), length);
+			auto stream = std::make_unique<Rml::Core::StreamMemory>(data.get(), length);
 			stream->SetSourceURL(file_name);
 
 			parser.Parse(stream.get());
@@ -91,7 +91,7 @@ namespace FontProviderBitmap
 
 		// Construct and add the font face
 		fonts.push_back(
-			Rml::MakeUnique<FontFaceBitmap>( 
+			std::make_unique<FontFaceBitmap>( 
 				parser.family, parser.style, parser.weight, parser.metrics, texture, parser.texture_dimensions, std::move(parser.glyphs), std::move(parser.kerning)
 		));
 
@@ -138,7 +138,7 @@ int FontFaceBitmap::GetStringWidth(const String& string, Character previous_char
 {
 	int width = 0;
 
-	for (auto it_char = Rml::StringIteratorU8(string); it_char; ++it_char)
+	for (auto it_char = Rml::Core::StringIteratorU8(string); it_char; ++it_char)
 	{
 		Character character = *it_char;
 
@@ -162,7 +162,7 @@ int FontFaceBitmap::GenerateString(const String& string, const Vector2f& string_
 	int width = 0;
 
 	geometry_list.resize(1);
-	Rml::Geometry& geometry = geometry_list[0];
+	Rml::Core::Geometry& geometry = geometry_list[0];
 
 	geometry.SetTexture(&texture);
 
@@ -175,7 +175,7 @@ int FontFaceBitmap::GenerateString(const String& string, const Vector2f& string_
 	Vector2f position = string_position.Round();
 	Character previous_character = Character::Null;
 
-	for (auto it_char = Rml::StringIteratorU8(string); it_char; ++it_char)
+	for (auto it_char = Rml::Core::StringIteratorU8(string); it_char; ++it_char)
 	{
 		Character character = *it_char;
 
@@ -197,7 +197,7 @@ int FontFaceBitmap::GenerateString(const String& string, const Vector2f& string_
 		Vector2f uv_top_left = glyph.position / texture_dimensions;
 		Vector2f uv_bottom_right = (glyph.position + glyph.dimension) / texture_dimensions;
 
-		Rml::GeometryUtilities::GenerateQuad(
+		Rml::Core::GeometryUtilities::GenerateQuad(
 			&vertices[0] + (vertices.size() - 4),
 			&indices[0] + (indices.size() - 6),
 			Vector2f(position + glyph.offset).Round(),
@@ -237,11 +237,11 @@ FontParserBitmap::~FontParserBitmap()
 }
 
 // Called when the parser finds the beginning of an element tag.
-void FontParserBitmap::HandleElementStart(const String& name, const Rml::XMLAttributes& attributes)
+void FontParserBitmap::HandleElementStart(const String& name, const Rml::Core::XMLAttributes& attributes)
 {
 	if (name == "info")
 	{
-		family = Rml::StringUtilities::ToLower( Get(attributes, "face", String()) );
+		family = Rml::Core::StringUtilities::ToLower( Get(attributes, "face", String()) );
 		metrics.size = Get(attributes, "size", 0);
 
 		style = Get(attributes, "italic", 0) == 1 ? FontStyle::Italic : FontStyle::Normal;
@@ -260,7 +260,7 @@ void FontParserBitmap::HandleElementStart(const String& name, const Rml::XMLAttr
 		int id = Get(attributes, "id", -1);
 		if(id != 0)
 		{
-			Rml::Log::Message(Rml::Log::LT_WARNING, "Only single font textures are supported in Bitmap Font Engine");
+			Rml::Core::Log::Message(Rml::Core::Log::LT_WARNING, "Only single font textures are supported in Bitmap Font Engine");
 			return;
 		}
 		texture_name = Get(attributes, "file", String());
@@ -310,8 +310,7 @@ void FontParserBitmap::HandleElementEnd(const String& RMLUI_UNUSED_PARAMETER(nam
 }
 
 // Called when the parser encounters data.
-void FontParserBitmap::HandleData(const String& RMLUI_UNUSED_PARAMETER(data), Rml::XMLDataType RMLUI_UNUSED_PARAMETER(type))
+void FontParserBitmap::HandleData(const String& RMLUI_UNUSED_PARAMETER(data))
 {
 	RMLUI_UNUSED(data);
-	RMLUI_UNUSED(type);
 }

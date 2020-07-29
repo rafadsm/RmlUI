@@ -32,6 +32,7 @@
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	A texture layout rectangle is an area positioned with a texture layout.
@@ -91,5 +92,7 @@ private:
 	int texture_stride;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

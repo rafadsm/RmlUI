@@ -29,6 +29,7 @@
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 Vector3i operator*(int lhs, const Vector3i& rhs)
 {
@@ -42,4 +43,5 @@ Vector3f operator*(float lhs, const Vector3f& rhs)
 
 
 
-} // namespace Rml
+}
+}

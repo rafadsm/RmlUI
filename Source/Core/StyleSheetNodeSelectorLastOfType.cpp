@@ -30,6 +30,7 @@
 #include "../../Include/RmlUi/Core/Element.h"
 
 namespace Rml {
+namespace Core {
 
 StyleSheetNodeSelectorLastOfType::StyleSheetNodeSelectorLastOfType()
 {
@@ -69,4 +70,5 @@ bool StyleSheetNodeSelectorLastOfType::IsApplicable(const Element* element, int 
 	return false;
 }
 
-} // namespace Rml
+}
+}

@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTDECORATION_H
-#define RMLUI_CORE_ELEMENTDECORATION_H
+#ifndef RMLUICOREELEMENTDECORATION_H
+#define RMLUICOREELEMENTDECORATION_H
 
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 class Decorator;
 class Element;
@@ -70,7 +71,7 @@ private:
 		DecoratorDataHandle decorator_data;
 	};
 
-	using DecoratorHandleList = Vector< DecoratorHandle >;
+	using DecoratorHandleList = std::vector< DecoratorHandle >;
 
 	// The element this decorator belongs to
 	Element* element;
@@ -82,5 +83,7 @@ private:
 	bool decorators_dirty;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

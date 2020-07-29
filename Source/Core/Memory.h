@@ -26,14 +26,16 @@
  *
  */
 
-#ifndef RMLUI_CORE_MEMORY_H
-#define RMLUI_CORE_MEMORY_H
+#ifndef RMLUICOREMEMORY_H
+#define RMLUICOREMEMORY_H
 
 
 #include "../../Include/RmlUi/Core/Types.h"
 #include "../../Include/RmlUi/Core/Traits.h"
 
 namespace Rml {
+namespace Core {
+
 
 namespace Detail {
 
@@ -135,5 +137,7 @@ private:
 	T* p;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -26,15 +26,15 @@
  *
  */
 
-#ifndef RMLUI_DEBUGGER_ELEMENTCONTEXTHOOK_H
-#define RMLUI_DEBUGGER_ELEMENTCONTEXTHOOK_H
+#ifndef RMLUIDEBUGGERELEMENTCONTEXTHOOK_H
+#define RMLUIDEBUGGERELEMENTCONTEXTHOOK_H
 
 #include "../../Include/RmlUi/Core/ElementDocument.h"
 
 namespace Rml {
 namespace Debugger {
 
-class DebuggerPlugin;
+class Plugin;
 
 /**
 	An element that the debugger uses to render into a foreign context.
@@ -42,23 +42,23 @@ class DebuggerPlugin;
 	@author Peter Curry
  */
 
-class ElementContextHook : public ElementDocument
+class ElementContextHook : public Core::ElementDocument
 {
 public:
-	RMLUI_RTTI_DefineWithParent(ElementContextHook, ElementDocument)
+	RMLUI_RTTI_DefineWithParent(ElementContextHook, Core::ElementDocument)
 
-	ElementContextHook(const String& tag);
+	ElementContextHook(const Core::String& tag);
 	virtual ~ElementContextHook();
 
-	void Initialise(DebuggerPlugin* debugger);
+	void Initialise(Plugin* debugger);
 
 	void OnRender() override;
 
 private:
-	DebuggerPlugin* debugger;
+	Plugin* debugger;
 };
 
 }
-} // namespace Rml
+}
 
 #endif

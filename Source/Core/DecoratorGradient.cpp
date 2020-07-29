@@ -44,6 +44,7 @@ stop-color: #00ff00;
 */
 
 namespace Rml {
+namespace Core {
 
 //=======================================================
 
@@ -130,7 +131,7 @@ SharedPtr<Decorator> DecoratorGradientInstancer::InstanceDecorator(const String 
 	Colourb start = properties_.GetProperty(ids.start)->Get<Colourb>();
 	Colourb stop = properties_.GetProperty(ids.stop)->Get<Colourb>();
 
-	auto decorator = MakeShared<DecoratorGradient>();
+	auto decorator = std::make_shared<DecoratorGradient>();
 	if (decorator->Initialise(dir, start, stop)) {
 		return decorator;
 	}
@@ -138,4 +139,5 @@ SharedPtr<Decorator> DecoratorGradientInstancer::InstanceDecorator(const String 
 	return nullptr;
 }
 
-} // namespace Rml
+}
+}

@@ -29,6 +29,7 @@
 #include "../../Include/RmlUi/Core/ElementText.h"
 
 namespace Rml {
+namespace Core {
 
 ElementText::ElementText(const String& tag) : Element(tag)
 {
@@ -38,4 +39,5 @@ ElementText::~ElementText()
 {
 }
 
-} // namespace Rml
+}
+}

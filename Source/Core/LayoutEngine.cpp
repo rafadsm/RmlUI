@@ -41,6 +41,7 @@
 #include <cstddef>
 
 namespace Rml {
+namespace Core {
 
 #define MAX(a, b) (a > b ? a : b)
 
@@ -689,4 +690,5 @@ void LayoutEngine::BuildBoxHeight(Box& box, const ComputedValues& computed, floa
 	box.SetContent(content_area);
 }
 
-} // namespace Rml
+}
+}

@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTEFFECTINSTANCER_H
-#define RMLUI_CORE_FONTEFFECTINSTANCER_H
+#ifndef RMLUICOREFONTEFFECTINSTANCER_H
+#define RMLUICOREFONTEFFECTINSTANCER_H
 
 #include "Traits.h"
 #include "Header.h"
@@ -35,6 +35,7 @@
 #include "PropertySpecification.h"
 
 namespace Rml {
+namespace Core {
 
 class FontEffect;
 
@@ -86,5 +87,7 @@ private:
 	friend class Factory;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_PROPERTYSHORTHANDDEFINITION_H
-#define RMLUI_CORE_PROPERTYSHORTHANDDEFINITION_H
+#ifndef RMLUICOREPROPERTYSHORTHANDDEFINITION_H
+#define RMLUICOREPROPERTYSHORTHANDDEFINITION_H
 
 #include "../../Include/RmlUi/Core/ID.h"
 
 namespace Rml {
+namespace Core {
 
 enum class ShorthandType;
 class PropertyDefinition;
@@ -58,7 +59,7 @@ struct ShorthandItem {
 };
 
 // A list of shorthands or properties
-using ShorthandItemList = Vector< ShorthandItem >;
+using ShorthandItemList = std::vector< ShorthandItem >;
 
 struct ShorthandDefinition
 {
@@ -67,5 +68,7 @@ struct ShorthandDefinition
 	ShorthandType type;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

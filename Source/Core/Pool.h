@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_POOL_H
-#define RMLUI_CORE_POOL_H
+#ifndef RMLUICOREPOOL_H
+#define RMLUICOREPOOL_H
 
 #include "../../Include/RmlUi/Core/Header.h"
 #include "../../Include/RmlUi/Core/Debug.h"
@@ -35,6 +35,7 @@
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 template < typename PoolType >
 class Pool
@@ -149,7 +150,8 @@ private:
 	int num_allocated_objects;
 };
 
-} // namespace Rml
+}
+}
 
 #include "Pool.inl"
 

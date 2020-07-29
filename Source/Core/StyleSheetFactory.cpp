@@ -44,6 +44,7 @@
 #include "../../Include/RmlUi/Core/Log.h"
 
 namespace Rml {
+namespace Core {
 
 static StyleSheetFactory* instance = nullptr;
 
@@ -246,10 +247,10 @@ SharedPtr<StyleSheet> StyleSheetFactory::LoadStyleSheet(const String& sheet)
 
 	// Open stream, construct new sheet and pass the stream into the sheet
 	// TODO: Make this support ASYNC
-	auto stream = MakeUnique<StreamFile>();
+	auto stream = std::make_unique<StreamFile>();
 	if (stream->Open(sheet))
 	{
-		new_style_sheet = MakeShared<StyleSheet>();
+		new_style_sheet = std::make_shared<StyleSheet>();
 		if (!new_style_sheet->LoadStyleSheet(stream.get()))
 		{
 			new_style_sheet = nullptr;
@@ -258,4 +259,5 @@ SharedPtr<StyleSheet> StyleSheetFactory::LoadStyleSheet(const String& sheet)
 	return new_style_sheet;
 }
 
-} // namespace Rml
+}
+}

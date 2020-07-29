@@ -30,6 +30,7 @@
 #include "../../Include/RmlUi/Core/PropertyDefinition.h"
 
 namespace Rml {
+namespace Core {
 
 FontEffectShadow::FontEffectShadow() : offset(0, 0)
 {
@@ -84,7 +85,7 @@ SharedPtr<FontEffect> FontEffectShadowInstancer::InstanceFontEffect(const String
 	offset.y = Math::RealToInteger(properties.GetProperty(id_offset_y)->Get< float >());
 	Colourb color = properties.GetProperty(id_color)->Get< Colourb >();
 
-	auto font_effect = MakeShared<FontEffectShadow>();
+	auto font_effect = std::make_shared<FontEffectShadow>();
 	if (font_effect->Initialise(offset))
 	{
 		font_effect->SetColour(color);
@@ -94,4 +95,5 @@ SharedPtr<FontEffect> FontEffectShadowInstancer::InstanceFontEffect(const String
 	return nullptr;
 }
 
-} // namespace Rml
+}
+}

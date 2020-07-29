@@ -33,6 +33,7 @@
 #include <string.h>
 
 namespace Rml {
+namespace Core {
 
 Template::Template()
 {
@@ -93,7 +94,7 @@ bool Template::Load(Stream* stream)
 	}
 
 	// Create a stream around the header, parse it and store it
-	auto header_stream = MakeUnique<StreamMemory>((const byte*) head_start,head_end - head_start);
+	auto header_stream = std::make_unique<StreamMemory>((const byte*) head_start,head_end - head_start);
 	header_stream->SetSourceURL(stream->GetSourceURL());
 
 	XMLParser parser(nullptr);
@@ -104,7 +105,7 @@ bool Template::Load(Stream* stream)
 	header = *parser.GetDocumentHeader();
 
 	// Store the body in stream form
-	body = MakeUnique<StreamMemory>(body_end - body_start);	
+	body = std::make_unique<StreamMemory>(body_end - body_start);	
 	body->SetSourceURL(stream->GetSourceURL());
 	body->PushBack(body_start, body_end - body_start);
 
@@ -135,4 +136,5 @@ const DocumentHeader* Template::GetHeader()
 	return &header;
 }
 
-} // namespace Rml
+}
+}

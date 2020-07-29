@@ -39,6 +39,8 @@
 #include "IdNameMap.h"
 
 namespace Rml {
+namespace Core {
+
 
 static StyleSheetSpecification* instance = nullptr;
 
@@ -400,4 +402,5 @@ void StyleSheetSpecification::RegisterDefaultProperties()
 	instance->properties.shorthand_map->AssertAllInserted(ShorthandId::NumDefinedIds);
 }
 
-} // namespace Rml
+}
+}

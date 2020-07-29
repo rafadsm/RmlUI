@@ -38,6 +38,7 @@
 #include "../../Include/RmlUi/Core/Profiling.h"
 
 namespace Rml {
+namespace Core {
 
 LayoutInlineBoxText::LayoutInlineBoxText(Element* element, int _line_begin) : LayoutInlineBox(element, Box())
 {
@@ -166,4 +167,5 @@ void LayoutInlineBoxText::BuildWordBox()
 	box.SetContent(content_area);
 }
 
-} // namespace Rml
+}
+}

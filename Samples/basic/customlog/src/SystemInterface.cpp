@@ -52,7 +52,7 @@ double SystemInterface::GetElapsedTime()
 	return Shell::GetElapsedTime();
 }
 
-bool SystemInterface::LogMessage(Rml::Log::Type type, const Rml::String& message)
+bool SystemInterface::LogMessage(Rml::Core::Log::Type type, const Rml::Core::String& message)
 {
 	if (fp != nullptr)
 	{
@@ -60,12 +60,12 @@ bool SystemInterface::LogMessage(Rml::Log::Type type, const Rml::String& message
 		const char* prefix;
 		switch (type)
 		{
-			case Rml::Log::LT_ERROR:
-			case Rml::Log::LT_ASSERT:
+			case Rml::Core::Log::LT_ERROR:
+			case Rml::Core::Log::LT_ASSERT:
 				prefix = "-!-";
 				break;
 
-			case Rml::Log::LT_WARNING:
+			case Rml::Core::Log::LT_WARNING:
 				prefix = "-*-";
 				break;
 
@@ -79,9 +79,9 @@ bool SystemInterface::LogMessage(Rml::Log::Type type, const Rml::String& message
 		fflush(fp);
 
 #ifdef RMLUI_PLATFORM_WIN32
-		if (type == Rml::Log::LT_ASSERT)
+		if (type == Rml::Core::Log::LT_ASSERT)
 		{
-			Rml::String assert_message = Rml::CreateString(1024, "%s\nWould you like to interrupt execution?", message.c_str());
+			Rml::Core::String assert_message = Rml::Core::CreateString(1024, "%s\nWould you like to interrupt execution?", message.c_str());
 
 			// Return TRUE if the user presses NO (continue execution)
 			return MessageBox(nullptr, assert_message.c_str(), "Assertion Failure", MB_YESNO | MB_ICONSTOP | MB_DEFBUTTON2 | MB_SYSTEMMODAL) == IDNO;

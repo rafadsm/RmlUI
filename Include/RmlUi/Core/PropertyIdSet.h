@@ -25,14 +25,15 @@
  * THE SOFTWARE.
  *
  */
-#ifndef RMLUI_CORE_PROPERTYIDSET_H
-#define RMLUI_CORE_PROPERTYIDSET_H
+#ifndef RMLUICOREPROPERTYIDSET_H
+#define RMLUICOREPROPERTYIDSET_H
 
 #include "Types.h"
 #include "ID.h"
 #include <bitset>
 
 namespace Rml {
+namespace Core {
 
 class PropertyIdSetIterator;
 
@@ -174,5 +175,7 @@ PropertyIdSetIterator PropertyIdSet::Erase(PropertyIdSetIterator it) {
 	return it;
 }
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_XMLNODEHANDLERBODY_H
-#define RMLUI_CORE_XMLNODEHANDLERBODY_H
+#ifndef RMLUICOREXMLNODEHANDLERBODY_H
+#define RMLUICOREXMLNODEHANDLERBODY_H
 
 #include "../../Include/RmlUi/Core/XMLNodeHandler.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	Element Node handler that processes the HEAD tag
@@ -50,8 +51,10 @@ public:
 	/// Called when an element is closed
 	bool ElementEnd(XMLParser* parser, const String& name) override;
 	/// Called for element data
-	bool ElementData(XMLParser* parser, const String& data, XMLDataType type) override;
+	bool ElementData(XMLParser* parser, const String& data) override;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

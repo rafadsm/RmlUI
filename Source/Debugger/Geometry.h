@@ -26,14 +26,16 @@
  *
  */
 
-#ifndef RMLUI_DEBUGGER_GEOMETRY_H
-#define RMLUI_DEBUGGER_GEOMETRY_H
+#ifndef RMLUIDEBUGGERGEOMETRY_H
+#define RMLUIDEBUGGERGEOMETRY_H
 
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
 
-class Context;
+namespace Core {
+	class Context;
+}
 
 namespace Debugger {
 
@@ -47,20 +49,20 @@ class Geometry
 {
 public:
 	// Set the context to render through.
-	static void SetContext(Context* context);
+	static void SetContext(Core::Context* context);
 
 	// Renders a one-pixel rectangular outline.
-	static void RenderOutline(const Vector2f& origin, const Vector2f& dimensions, const Colourb& colour, float width);
+	static void RenderOutline(const Core::Vector2f& origin, const Core::Vector2f& dimensions, const Core::Colourb& colour, float width);
 	// Renders a box.
-	static void RenderBox(const Vector2f& origin, const Vector2f& dimensions, const Colourb& colour);
+	static void RenderBox(const Core::Vector2f& origin, const Core::Vector2f& dimensions, const Core::Colourb& colour);
 	// Renders a box with a hole in the middle.
-	static void RenderBox(const Vector2f& origin, const Vector2f& dimensions, const Vector2f& hole_origin, const Vector2f& hole_dimensions, const Colourb& colour);
+	static void RenderBox(const Core::Vector2f& origin, const Core::Vector2f& dimensions, const Core::Vector2f& hole_origin, const Core::Vector2f& hole_dimensions, const Core::Colourb& colour);
 
 private:
 	Geometry();
 };
 
 }
-} // namespace Rml
+}
 
 #endif

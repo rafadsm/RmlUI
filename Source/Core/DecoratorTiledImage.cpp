@@ -32,6 +32,7 @@
 #include "../../Include/RmlUi/Core/GeometryUtilities.h"
 
 namespace Rml {
+namespace Core {
 
 DecoratorTiledImage::DecoratorTiledImage()
 {
@@ -76,4 +77,5 @@ void DecoratorTiledImage::RenderElement(Element* element, DecoratorDataHandle el
 	data->Render(element->GetAbsoluteOffset(Box::PADDING).Round());
 }
 
-} // namespace Rml
+}
+}

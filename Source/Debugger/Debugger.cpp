@@ -28,39 +28,39 @@
 
 #include "../../Include/RmlUi/Debugger/Debugger.h"
 #include "../../Include/RmlUi/Core/Core.h"
-#include "DebuggerPlugin.h"
+#include "Plugin.h"
 
 namespace Rml {
 namespace Debugger {
 
 // Initialises the debug plugin. The debugger will be loaded into the given context.
-bool Initialise(Context* context)
+bool Initialise(Core::Context* context)
 {
-	if (DebuggerPlugin::GetInstance() != nullptr)
+	if (Plugin::GetInstance() != nullptr)
 	{
-		Log::Message(Log::LT_WARNING, "Unable to initialise debugger plugin, already initialised!");
+		Core::Log::Message(Core::Log::LT_WARNING, "Unable to initialise debugger plugin, already initialised!");
 		return false;
 	}
 
-	DebuggerPlugin* plugin = new DebuggerPlugin();
+	Plugin* plugin = new Plugin();
 	if (!plugin->Initialise(context))
 	{
-		Log::Message(Log::LT_WARNING, "Unable to initialise debugger plugin.");
+		Core::Log::Message(Core::Log::LT_WARNING, "Unable to initialise debugger plugin.");
 
 		delete plugin;
 		return false;
 	}
 
 	SetContext(context);
-	RegisterPlugin(plugin);
+	Core::RegisterPlugin(plugin);
 
 	return true;
 }
 
 // Sets the context to be debugged.
-bool SetContext(Context* context)
+bool SetContext(Core::Context* context)
 {
-	DebuggerPlugin* plugin = DebuggerPlugin::GetInstance();
+	Plugin* plugin = Plugin::GetInstance();
 	if (plugin == nullptr)
 		return false;
 
@@ -72,7 +72,7 @@ bool SetContext(Context* context)
 // Sets the visibility of the debugger.
 void SetVisible(bool visibility)
 {
-	DebuggerPlugin* plugin = DebuggerPlugin::GetInstance();
+	Plugin* plugin = Plugin::GetInstance();
 	if (plugin != nullptr)
 		plugin->SetVisible(visibility);
 }
@@ -80,7 +80,7 @@ void SetVisible(bool visibility)
 // Returns the visibility of the debugger.
 bool IsVisible()
 {
-	DebuggerPlugin* plugin = DebuggerPlugin::GetInstance();
+	Plugin* plugin = Plugin::GetInstance();
 	if (plugin == nullptr)
 		return false;
 
@@ -88,4 +88,4 @@ bool IsVisible()
 }
 
 }
-} // namespace Rml
+}

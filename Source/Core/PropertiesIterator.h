@@ -25,19 +25,22 @@
  * THE SOFTWARE.
  *
  */
-#ifndef RMLUI_CORE_PROPERTIESITERATOR_H
-#define RMLUI_CORE_PROPERTIESITERATOR_H
+#ifndef RMLUICOREPROPERTIESITERATOR_H
+#define RMLUICOREPROPERTIESITERATOR_H
 
 #include "../../Include/RmlUi/Core/Types.h"
 #include "../../Include/RmlUi/Core/PropertyIdSet.h"
 
 namespace Rml {
+namespace Core {
+
+
 
 // An iterator for local properties defined on an element.
 // Note: Modifying the underlying style invalidates the iterator.
 class PropertiesIterator {
 public:
-	using ValueType = Pair<PropertyId, const Property&>;
+	using ValueType = std::pair<PropertyId, const Property&>;
 	using PropertyIt = PropertyMap::const_iterator;
 
 	PropertiesIterator(PropertyIt it_style, PropertyIt it_style_end, PropertyIt it_definition, PropertyIt it_definition_end)
@@ -105,5 +108,7 @@ private:
 };
 
 
-} // namespace Rml
+}
+}
+
 #endif

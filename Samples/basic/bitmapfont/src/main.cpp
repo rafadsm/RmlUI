@@ -43,7 +43,7 @@
 
 */
 
-Rml::Context* context = nullptr;
+Rml::Core::Context* context = nullptr;
 
 ShellRenderInterfaceExtensions *shell_renderer;
 
@@ -92,23 +92,23 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	}
 
 	// RmlUi initialisation.
-	Rml::SetRenderInterface(&opengl_renderer);
+	Rml::Core::SetRenderInterface(&opengl_renderer);
 	shell_renderer->SetViewport(window_width, window_height);
 
 	ShellSystemInterface system_interface;
-	Rml::SetSystemInterface(&system_interface);
+	Rml::Core::SetSystemInterface(&system_interface);
 
 	// Construct and load the font interface.
 	FontEngineInterfaceBitmap font_interface;
-	Rml::SetFontEngineInterface(&font_interface);
+	Rml::Core::SetFontEngineInterface(&font_interface);
 
-	Rml::Initialise();
+	Rml::Core::Initialise();
 
 	// Create the main RmlUi context and set it on the shell's input layer.
-	context = Rml::CreateContext("main", Rml::Vector2i(window_width, window_height));
+	context = Rml::Core::CreateContext("main", Rml::Core::Vector2i(window_width, window_height));
 	if (context == nullptr)
 	{
-		Rml::Shutdown();
+		Rml::Core::Shutdown();
 		Shell::Shutdown();
 		return -1;
 	}
@@ -118,15 +118,15 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	shell_renderer->SetContext(context);
 
     // Load bitmap font
-	if (!Rml::LoadFontFace("basic/bitmapfont/data/Comfortaa_Regular_22.fnt"))
+	if (!Rml::Core::LoadFontFace("basic/bitmapfont/data/Comfortaa_Regular_22.fnt"))
 	{
-		Rml::Shutdown();
+		Rml::Core::Shutdown();
 		Shell::Shutdown();
 		return -1;
 	}
 
 	// Load and show the demo document.
-	if (Rml::ElementDocument * document = context->LoadDocument("basic/bitmapfont/data/bitmapfont.rml"))
+	if (Rml::Core::ElementDocument * document = context->LoadDocument("basic/bitmapfont/data/bitmapfont.rml"))
 	{
 		if (auto el = document->GetElementById("title"))
 			el->SetInnerRML("Bitmap font");
@@ -137,7 +137,7 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	Shell::EventLoop(GameLoop);
 
 	// Shutdown RmlUi.
-	Rml::Shutdown();
+	Rml::Core::Shutdown();
 
 	Shell::CloseWindow();
 	Shell::Shutdown();

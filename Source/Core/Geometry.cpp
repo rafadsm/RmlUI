@@ -37,6 +37,7 @@
 
 
 namespace Rml {
+namespace Core {
 
 Geometry::Geometry(Element* host_element) : host_element(host_element)
 {
@@ -140,13 +141,13 @@ void Geometry::Render(const Vector2f& translation)
 }
 
 // Returns the geometry's vertices. If these are written to, Release() should be called to force a recompile.
-Vector< Vertex >& Geometry::GetVertices()
+std::vector< Vertex >& Geometry::GetVertices()
 {
 	return vertices;
 }
 
 // Returns the geometry's indices. If these are written to, Release() should be called to force a recompile.
-Vector< int >& Geometry::GetIndices()
+std::vector< int >& Geometry::GetIndices()
 {
 	return indices;
 }
@@ -193,7 +194,8 @@ RenderInterface* Geometry::GetRenderInterface()
 	if (host_context)
 		return host_context->GetRenderInterface();
 	else
-		return ::Rml::GetRenderInterface();
+		return Rml::Core::GetRenderInterface();
 }
 
-} // namespace Rml
+}
+}

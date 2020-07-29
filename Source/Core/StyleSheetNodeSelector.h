@@ -26,10 +26,11 @@
  *
  */
 
-#ifndef RMLUI_CORE_STYLESHEETNODESELECTOR_H
-#define RMLUI_CORE_STYLESHEETNODESELECTOR_H
+#ifndef RMLUICORESTYLESHEETNODESELECTOR_H
+#define RMLUICORESTYLESHEETNODESELECTOR_H
 
 namespace Rml {
+namespace Core {
 
 class Element;
 
@@ -56,5 +57,7 @@ protected:
 	bool IsNth(int a, int b, int count);
 };
 
-} // namespace Rml
+}
+}
+
 #endif

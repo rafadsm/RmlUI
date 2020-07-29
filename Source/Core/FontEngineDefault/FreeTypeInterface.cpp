@@ -34,6 +34,7 @@
 #include FT_FREETYPE_H
 
 namespace Rml {
+namespace Core {
 
 static FT_Library ft_library = nullptr;
 
@@ -373,4 +374,5 @@ static void GenerateMetrics(FT_Face ft_face, FontMetrics& metrics)
 }
 
 
-} // namespace Rml
+}
+}

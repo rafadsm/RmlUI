@@ -32,6 +32,7 @@
 #include <algorithm>
 
 namespace Rml {
+namespace Core {
 
 struct RectangleSort
 {
@@ -106,4 +107,5 @@ bool TextureLayout::GenerateLayout(int max_texture_dimensions)
 	return true;
 }
 
-} // namespace Rml
+}
+}

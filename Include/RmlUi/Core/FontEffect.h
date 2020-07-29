@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTEFFECT_H
-#define RMLUI_CORE_FONTEFFECT_H
+#ifndef RMLUICOREFONTEFFECT_H
+#define RMLUICOREFONTEFFECT_H
 
 #include "FontGlyph.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	@author Peter Curry
@@ -88,5 +89,7 @@ private:
 	size_t fingerprint;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

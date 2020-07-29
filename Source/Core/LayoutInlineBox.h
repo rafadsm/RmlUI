@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_LAYOUTINLINEBOX_H
-#define RMLUI_CORE_LAYOUTINLINEBOX_H
+#ifndef RMLUICORELAYOUTINLINEBOX_H
+#define RMLUICORELAYOUTINLINEBOX_H
 
 #include "../../Include/RmlUi/Core/Box.h"
 #include "../../Include/RmlUi/Core/ComputedValues.h"
 
 namespace Rml {
+namespace Core {
 
 class Element;
 class ElementText;
@@ -164,7 +165,7 @@ protected:
 	// This inline box's line.
 	LayoutLineBox* line;
 
-	Vector< LayoutInlineBox* > children;
+	std::vector< LayoutInlineBox* > children;
 
 	// The next link in our element's chain of inline boxes.
 	LayoutInlineBox* chain;
@@ -172,5 +173,7 @@ protected:
 	bool chained;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

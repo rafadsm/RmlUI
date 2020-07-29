@@ -30,6 +30,8 @@
 #include "Pool.h"
 
 namespace Rml {
+namespace Core {
+
 
 static Pool< ObserverPtrBlock >& GetPool()
 {
@@ -54,4 +56,5 @@ ObserverPtrBlock* AllocateObserverPtrBlock()
 
 
 
-} // namespace Rml
+}
+}

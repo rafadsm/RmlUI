@@ -34,6 +34,8 @@
 #include <string.h>
 
 namespace Rml {
+namespace Core {
+
 
 static int FormatString(String& string, size_t max_size, const char* format, va_list argument_list)
 {
@@ -90,18 +92,6 @@ String StringUtilities::ToLower(const String& string) {
 	String str_lower = string;
 	std::transform(str_lower.begin(), str_lower.end(), str_lower.begin(), &CharToLower);
 	return str_lower;
-}
-
-String StringUtilities::ToUpper(const String& string)
-{
-	String str_upper = string;
-	std::transform(str_upper.begin(), str_upper.end(), str_upper.begin(), [](char c) {
-		if (c >= 'a' && c <= 'z')
-			c -= char('a' - 'A');
-		return c;
-		}
-	);
-	return str_upper;
 }
 
 RMLUICORE_API String StringUtilities::EncodeRml(const String& string)
@@ -280,61 +270,6 @@ RMLUICORE_API String StringUtilities::StripWhitespace(StringView string)
 	return String();
 }
 
-void StringUtilities::TrimTrailingDotZeros(String& string)
-{
-	RMLUI_ASSERTMSG(string.find('.') != String::npos, "This function probably does not do what you want if the string is not a number with a decimal point.")
-
-	size_t new_size = string.size();
-	for (size_t i = string.size() - 1; i < string.size(); i--)
-	{
-		if (string[i] == '.')
-		{
-			new_size = i;
-			break;
-		}
-		else if (string[i] == '0')
-			new_size = i;
-		else
-			break;
-	}
-
-	if (new_size < string.size())
-		string.resize(new_size);
-}
-
-#ifdef RMLUI_DEBUG
-static struct TestTrimTrailingDotZeros {
-	TestTrimTrailingDotZeros() {
-		auto test = [](const String test_string, const String expected) {
-			String result = test_string;
-			StringUtilities::TrimTrailingDotZeros(result);
-			RMLUI_ASSERT(result == expected);
-		};
-		
-		test("0.1", "0.1");
-		test("0.10", "0.1");
-		test("0.1000", "0.1");
-		test("0.01", "0.01");
-		test("0.", "0");
-		test("5.", "5");
-		test("5.5", "5.5");
-		test("5.50", "5.5");
-		test("5.501", "5.501");
-		test("10.0", "10");
-		test("11.0", "11");
-
-		// Some test cases for behavior that are probably not what you want.
-		//test("test0", "test");
-		//test("1000", "1");
-		//test(".", "");
-		//test("0", "");
-		//test(".0", "");
-		//test(" 11 2121 3.00", " 11 2121 3");
-		//test("11", "11");
-	}
-} test_trim_trailing_dot_zeros;
-#endif
-
 bool StringUtilities::StringCompareCaseInsensitive(const StringView lhs, const StringView rhs)
 {
 	if (lhs.size() != rhs.size())
@@ -468,7 +403,7 @@ U16String StringUtilities::ToUTF16(const String& input)
 	if (input.empty())
 		return result;
 
-	Vector<Character> characters;
+	std::vector<Character> characters;
 	characters.reserve(input.size());
 
 	for (auto it = StringIteratorU8(input); it; ++it)
@@ -509,7 +444,7 @@ U16String StringUtilities::ToUTF16(const String& input)
 
 String StringUtilities::ToUTF8(const U16String& input)
 {
-	Vector<Character> characters;
+	std::vector<Character> characters;
 	characters.reserve(input.size());
 
 	bool valid_input = true;
@@ -568,7 +503,7 @@ StringView::StringView(const String& string) : p_begin(string.data()), p_end(str
 {}
 StringView::StringView(const String& string, size_t offset) : p_begin(string.data() + offset), p_end(string.data() + string.size())
 {}
-StringView::StringView(const String& string, size_t offset, size_t count) : p_begin(string.data() + offset), p_end(string.data() + std::min<size_t>(offset + count, string.size()))
+StringView::StringView(const String& string, size_t offset, size_t count) : p_begin(string.data() + offset), p_end(string.data() + std::min(offset + count, string.size()))
 {}
 
 bool StringView::operator==(const StringView& other) const { 
@@ -585,23 +520,24 @@ StringIteratorU8::StringIteratorU8(const String& string, size_t offset) : view(s
 StringIteratorU8::StringIteratorU8(const String& string, size_t offset, size_t count) : view(string, 0, offset + count), p(string.data() + offset)
 {}
 StringIteratorU8& StringIteratorU8::operator++() {
-	RMLUI_ASSERT(p < view.end());
+	RMLUI_ASSERT(p != view.end());
 	++p;
 	SeekForward();
 	return *this;
 }
 StringIteratorU8& StringIteratorU8::operator--() {
-	RMLUI_ASSERT(p >= view.begin());
+	RMLUI_ASSERT(p - 1 != view.begin());
 	--p;
 	SeekBack();
 	return *this;
 }
 inline void StringIteratorU8::SeekBack() {
-	p = StringUtilities::SeekBackwardUTF8(p, view.begin());
+	p = StringUtilities::SeekBackwardUTF8(p, view.end());
 }
 
 inline void StringIteratorU8::SeekForward() {
 	p = StringUtilities::SeekForwardUTF8(p, view.end());
 }
 
-} // namespace Rml
+}
+}

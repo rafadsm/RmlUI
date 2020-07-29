@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_FONTGLYPH_H
-#define RMLUI_CORE_FONTGLYPH_H
+#ifndef RMLUICOREFONTGLYPH_H
+#define RMLUICOREFONTGLYPH_H
 
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	Metrics and bitmap data for a single glyph within a font face.
@@ -78,5 +79,7 @@ public:
 
 using FontGlyphMap = UnorderedMap<Character, FontGlyph>;
 
-} // namespace Rml
+}
+}
+
 #endif

@@ -49,14 +49,6 @@
 #include <windows.h>
 #endif
 
-float multiplier = 1.f;
-
-void updateView(sf::RenderWindow& window, sf::View& view)
-{
-	view.reset(sf::FloatRect(0.f, 0.f, window.getSize().x * multiplier, window.getSize().y * multiplier));
-	window.setView(view);
-}
-
 int main(int /*argc*/, char** /*argv*/)
 {
 #ifdef RMLUI_PLATFORM_WIN32
@@ -66,7 +58,7 @@ int main(int /*argc*/, char** /*argv*/)
 	int window_width = 1024;
 	int window_height = 768;
 
-	sf::RenderWindow MyWindow(sf::VideoMode(window_width, window_height), "RmlUi with SFML2");
+	sf::RenderWindow MyWindow(sf::VideoMode(window_width, window_height), "RmlUi with SFML2", sf::Style::Close);
 	MyWindow.setVerticalSyncEnabled(true);
 
 #ifdef ENABLE_GLEW
@@ -85,36 +77,33 @@ int main(int /*argc*/, char** /*argv*/)
 
 	// NOTE: if fonts and rml are not found you'll probably have to adjust
 	// the path information in the string
-	Rml::String root = Shell::FindSamplesRoot();
+	Rml::Core::String root = Shell::FindSamplesRoot();
 	ShellFileInterface FileInterface(root);
 
 	if (!MyWindow.isOpen())
 		return 1;
 
-	sf::View view(sf::FloatRect(0.f, 0.f, (float)MyWindow.getSize().x, (float)MyWindow.getSize().y));
-	MyWindow.setView(view);
-
 	Renderer.SetWindow(&MyWindow);
 
-	Rml::SetFileInterface(&FileInterface);
-	Rml::SetRenderInterface(&Renderer);
-	Rml::SetSystemInterface(&SystemInterface);
+	Rml::Core::SetFileInterface(&FileInterface);
+	Rml::Core::SetRenderInterface(&Renderer);
+	Rml::Core::SetSystemInterface(&SystemInterface);
 
 
-	if (!Rml::Initialise())
+	if (!Rml::Core::Initialise())
 		return 1;
 
-	Rml::LoadFontFace("assets/Delicious-Bold.otf");
-	Rml::LoadFontFace("assets/Delicious-BoldItalic.otf");
-	Rml::LoadFontFace("assets/Delicious-Italic.otf");
-	Rml::LoadFontFace("assets/Delicious-Roman.otf");
+	Rml::Core::LoadFontFace("assets/Delicious-Bold.otf");
+	Rml::Core::LoadFontFace("assets/Delicious-BoldItalic.otf");
+	Rml::Core::LoadFontFace("assets/Delicious-Italic.otf");
+	Rml::Core::LoadFontFace("assets/Delicious-Roman.otf");
 
-	Rml::Context* Context = Rml::CreateContext("default",
-		Rml::Vector2i(MyWindow.getSize().x, MyWindow.getSize().y));
+	Rml::Core::Context* Context = Rml::Core::CreateContext("default",
+		Rml::Core::Vector2i(MyWindow.getSize().x, MyWindow.getSize().y));
 
 	Rml::Debugger::Initialise(Context);
 
-	Rml::ElementDocument* Document = Context->LoadDocument("assets/demo.rml");
+	Rml::Core::ElementDocument* Document = Context->LoadDocument("assets/demo.rml");
 
 	if (Document)
 	{
@@ -131,15 +120,6 @@ int main(int /*argc*/, char** /*argv*/)
 		static sf::Event event;
 
 		MyWindow.clear();
-
-		sf::CircleShape circle(50.f);
-		circle.setPosition(100.f, 100.f);
-		circle.setFillColor(sf::Color::Blue);
-		circle.setOutlineColor(sf::Color::Red);
-		circle.setOutlineThickness(10.f);
-
-		MyWindow.draw(circle);
-
 		Context->Render();
 		MyWindow.display();
 
@@ -148,7 +128,7 @@ int main(int /*argc*/, char** /*argv*/)
 			switch (event.type)
 			{
 			case sf::Event::Resized:
-				updateView(MyWindow, view);
+				Renderer.Resize();
 				break;
 			case sf::Event::MouseMoved:
 				Context->ProcessMouseMove(event.mouseMove.x, event.mouseMove.y,
@@ -168,35 +148,20 @@ int main(int /*argc*/, char** /*argv*/)
 				break;
 			case sf::Event::TextEntered:
 				if (event.text.unicode > 32)
-					Context->ProcessTextInput(Rml::Character(event.text.unicode));
+					Context->ProcessTextInput(Rml::Core::Character(event.text.unicode));
 				break;
 			case sf::Event::KeyPressed:
 				Context->ProcessKeyDown(SystemInterface.TranslateKey(event.key.code),
 					SystemInterface.GetKeyModifiers());
 				break;
 			case sf::Event::KeyReleased:
-				switch (event.key.code)
+				if (event.key.code == sf::Keyboard::F8)
 				{
-				case sf::Keyboard::Num1:
-					multiplier = 2.f;
-					updateView(MyWindow, view);
-					break;
-				case sf::Keyboard::Num2:
-					multiplier = 1.f;
-					updateView(MyWindow, view);
-					break;
-				case sf::Keyboard::Num3:
-					multiplier = .5f;
-					updateView(MyWindow, view);
-					break;
-				case sf::Keyboard::F8:
 					Rml::Debugger::SetVisible(!Rml::Debugger::IsVisible());
-					break;
-				case sf::Keyboard::Escape:
+				};
+
+				if (event.key.code == sf::Keyboard::Escape) {
 					MyWindow.close();
-					break;
-				default:
-					break;
 				}
 
 				Context->ProcessKeyUp(SystemInterface.TranslateKey(event.key.code),
@@ -213,7 +178,7 @@ int main(int /*argc*/, char** /*argv*/)
 		Context->Update();
 	};
 
-	Rml::Shutdown();
+	Rml::Core::Shutdown();
 
 	return 0;
 }

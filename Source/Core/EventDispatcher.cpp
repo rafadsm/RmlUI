@@ -36,6 +36,8 @@
 #include <limits.h>
 
 namespace Rml {
+namespace Core {
+
 
 bool operator==(EventListenerEntry a, EventListenerEntry b) { return a.id == b.id && a.in_capture_phase == b.in_capture_phase && a.listener == b.listener; }
 bool operator!=(EventListenerEntry a, EventListenerEntry b) { return !(a == b); }
@@ -140,8 +142,8 @@ bool EventDispatcher::DispatchEvent(Element* target_element, const EventId id, c
 {
 	RMLUI_ASSERTMSG(!((int)default_action_phase & (int)EventPhase::Capture), "We assume here that the default action phases cannot include capture phase.");
 
-	Vector<CollectedListener> listeners;
-	Vector<ObserverPtr<Element>> default_action_elements;
+	std::vector<CollectedListener> listeners;
+	std::vector<ObserverPtr<Element>> default_action_elements;
 
 	const EventPhase phases_to_execute = EventPhase((int)EventPhase::Capture | (int)EventPhase::Target | (bubbles ? (int)EventPhase::Bubble : 0));
 	
@@ -226,7 +228,7 @@ bool EventDispatcher::DispatchEvent(Element* target_element, const EventId id, c
 }
 
 
-void EventDispatcher::CollectListeners(int dom_distance_from_target, const EventId event_id, const EventPhase event_executes_in_phases, Vector<CollectedListener>& collect_listeners)
+void EventDispatcher::CollectListeners(int dom_distance_from_target, const EventId event_id, const EventPhase event_executes_in_phases, std::vector<CollectedListener>& collect_listeners)
 {
 	// Find all the entries with a matching id, given that listeners are sorted by id first.
 	Listeners::iterator begin, end;
@@ -292,4 +294,5 @@ String EventDispatcher::ToString() const
 }
 
 
-} // namespace Rml
+}
+}

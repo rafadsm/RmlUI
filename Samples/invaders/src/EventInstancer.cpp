@@ -38,7 +38,7 @@ EventInstancer::~EventInstancer()
 }
 
 // Instances a new event handle for Invaders.
-Rml::EventListener* EventInstancer::InstanceEventListener(const Rml::String& value, Rml::Element* /*element*/)
+Rml::Core::EventListener* EventInstancer::InstanceEventListener(const Rml::Core::String& value, Rml::Core::Element* /*element*/)
 {
 	return new Event(value);
 }

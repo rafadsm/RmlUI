@@ -32,7 +32,7 @@
 #include <Shell.h>
 #include <ShellRenderInterfaceOpenGL.h>
 
-Rml::Context* context = nullptr;
+Rml::Core::Context* context = nullptr;
 
 ShellRenderInterfaceExtensions *shell_renderer;
 
@@ -81,19 +81,19 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	}
 
 	// RmlUi initialisation.
-	Rml::SetRenderInterface(&opengl_renderer);
+	Rml::Core::SetRenderInterface(&opengl_renderer);
 	shell_renderer->SetViewport(window_width, window_height);
 
 	ShellSystemInterface system_interface;
-	Rml::SetSystemInterface(&system_interface);
+	Rml::Core::SetSystemInterface(&system_interface);
 
-	Rml::Initialise();
+	Rml::Core::Initialise();
 
 	// Create the main RmlUi context and set it on the shell's input layer.
-	context = Rml::CreateContext("main", Rml::Vector2i(window_width, window_height));
+	context = Rml::Core::CreateContext("main", Rml::Core::Vector2i(window_width, window_height));
 	if (context == nullptr)
 	{
-		Rml::Shutdown();
+		Rml::Core::Shutdown();
 		Shell::Shutdown();
 		return -1;
 	}
@@ -105,13 +105,13 @@ int main(int RMLUI_UNUSED_PARAMETER(argc), char** RMLUI_UNUSED_PARAMETER(argv))
 	Shell::LoadFonts("assets/");
 
 	// Load and show the demo document.
-	if (Rml::ElementDocument * document = context->LoadDocument("assets/demo.rml"))
+	if (Rml::Core::ElementDocument * document = context->LoadDocument("assets/demo.rml"))
 		document->Show();
 
 	Shell::EventLoop(GameLoop);
 
 	// Shutdown RmlUi.
-	Rml::Shutdown();
+	Rml::Core::Shutdown();
 
 	Shell::CloseWindow();
 	Shell::Shutdown();

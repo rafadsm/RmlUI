@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_EVENTDISPATCHER_H
-#define RMLUI_CORE_EVENTDISPATCHER_H
+#ifndef RMLUICOREEVENTDISPATCHER_H
+#define RMLUICOREEVENTDISPATCHER_H
 
 #include "../../Include/RmlUi/Core/Types.h"
 #include "../../Include/RmlUi/Core/Event.h"
 
 namespace Rml {
+namespace Core {
 
 class Element;
 class EventListener;
@@ -98,14 +99,16 @@ private:
 
 	// Listeners are sorted first by (id, phase) and then by the order in which the listener was inserted.
 	// All listeners added are unique.
-	typedef Vector< EventListenerEntry > Listeners;
+	typedef std::vector< EventListenerEntry > Listeners;
 	Listeners listeners;
 
 	// Collect all the listeners from this dispatcher that are allowed to execute given the input arguments.
-	void CollectListeners(int dom_distance_from_target, EventId event_id, EventPhase phases_to_execute, Vector<CollectedListener>& collect_listeners);
+	void CollectListeners(int dom_distance_from_target, EventId event_id, EventPhase phases_to_execute, std::vector<CollectedListener>& collect_listeners);
 };
 
 
 
-} // namespace Rml
+}
+}
+
 #endif

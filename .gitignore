@@ -28,6 +28,8 @@ CMakeSettings.json
 
 # finn changes
 
+CMake/FileList.cmake
+
 Include/RmlUi/Core/Context.h
 Include/RmlUi/Core/Core.h
 

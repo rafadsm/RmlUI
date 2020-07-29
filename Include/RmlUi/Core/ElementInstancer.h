@@ -26,8 +26,8 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTINSTANCER_H
-#define RMLUI_CORE_ELEMENTINSTANCER_H
+#ifndef RMLUICOREELEMENTINSTANCER_H
+#define RMLUICOREELEMENTINSTANCER_H
 
 #include "Traits.h"
 #include "Types.h"
@@ -36,6 +36,7 @@
 #include "Profiling.h"
 
 namespace Rml {
+namespace Core {
 
 class Element;
 
@@ -126,5 +127,7 @@ public:
 	}
 };
 
-} // namespace Rml
+}
+}
+
 #endif

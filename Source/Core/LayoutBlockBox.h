@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_LAYOUTBLOCKBOX_H
-#define RMLUI_CORE_LAYOUTBLOCKBOX_H
+#ifndef RMLUICORELAYOUTBLOCKBOX_H
+#define RMLUICORELAYOUTBLOCKBOX_H
 
 #include "LayoutLineBox.h"
 #include "../../Include/RmlUi/Core/Box.h"
 #include "../../Include/RmlUi/Core/Types.h"
 
 namespace Rml {
+namespace Core {
 
 class LayoutBlockBoxSpace;
 class LayoutEngine;
@@ -179,9 +180,9 @@ private:
 	// overflow occured, false if it did.
 	bool CatchVerticalOverflow(float cursor = -1);
 
-	typedef Vector< AbsoluteElement > AbsoluteElementList;
-	typedef Vector< LayoutBlockBox* > BlockBoxList;
-	typedef Vector< LayoutLineBox* > LineBoxList;
+	typedef std::vector< AbsoluteElement > AbsoluteElementList;
+	typedef std::vector< LayoutBlockBox* > BlockBoxList;
+	typedef std::vector< LayoutLineBox* > LineBoxList;
 
 	// The object managing our space, as occupied by floating elements of this box and our ancestors.
 	LayoutBlockBoxSpace* space;
@@ -233,5 +234,7 @@ private:
 	ElementList float_elements;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

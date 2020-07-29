@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTBORDER_H
-#define RMLUI_CORE_ELEMENTBORDER_H
+#ifndef RMLUICOREELEMENTBORDER_H
+#define RMLUICOREELEMENTBORDER_H
 
 #include "../../Include/RmlUi/Core/Geometry.h"
 
 namespace Rml {
+namespace Core {
 
 class Box;
 class Element;
@@ -66,5 +67,7 @@ private:
 	bool border_dirty;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

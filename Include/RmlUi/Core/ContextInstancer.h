@@ -26,14 +26,15 @@
  *
  */
 
-#ifndef RMLUI_CORE_CONTEXTINSTANCER_H
-#define RMLUI_CORE_CONTEXTINSTANCER_H
+#ifndef RMLUICORECONTEXTINSTANCER_H
+#define RMLUICORECONTEXTINSTANCER_H
 
 #include "Header.h"
 #include "Traits.h"
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 class Context;
 class Event;
@@ -63,5 +64,7 @@ protected:
 	virtual void Release() = 0;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

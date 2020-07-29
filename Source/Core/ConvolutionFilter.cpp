@@ -32,6 +32,7 @@
 #include <string.h>
 
 namespace Rml {
+namespace Core {
 
 ConvolutionFilter::ConvolutionFilter()
 {}
@@ -126,4 +127,5 @@ void ConvolutionFilter::Run(byte* destination, const Vector2i destination_dimens
 	}
 }
 
-} // namespace Rml
+}
+}

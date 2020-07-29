@@ -32,6 +32,7 @@
 #include "TextureLayoutRectangle.h"
 
 namespace Rml {
+namespace Core {
 
 class TextureLayout;
 
@@ -67,11 +68,13 @@ public:
 	void Unplace();
 
 private:
-	using RectangleList = Vector< TextureLayoutRectangle* >;
+	using RectangleList = std::vector< TextureLayoutRectangle* >;
 
 	int height;
 	RectangleList rectangles;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

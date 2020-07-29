@@ -26,28 +26,28 @@
  *
  */
 
-#ifndef RMLUI_DEBUGGER_ELEMENTLOG_H
-#define RMLUI_DEBUGGER_ELEMENTLOG_H
+#ifndef RMLUIDEBUGGERELEMENTLOG_H
+#define RMLUIDEBUGGERELEMENTLOG_H
 
 #include "../../Include/RmlUi/Core/ElementDocument.h"
 #include "../../Include/RmlUi/Core/EventListener.h"
-#include "../../Include/RmlUi/Core/Types.h"
+#include <deque>
 
 namespace Rml {
 namespace Debugger {
 
-class DebuggerSystemInterface;
+class SystemInterface;
 
 /**
 	@author Robert Curry
  */
 
-class ElementLog : public Rml::ElementDocument, public Rml::EventListener
+class ElementLog : public Core::ElementDocument, public Core::EventListener
 {
 public:
-	RMLUI_RTTI_DefineWithParent(ElementLog, Rml::ElementDocument)
+	RMLUI_RTTI_DefineWithParent(ElementLog, Core::ElementDocument)
 
-	ElementLog(const String& tag);
+	ElementLog(const Core::String& tag);
 	~ElementLog();
 
 	/// Initialises the log element.
@@ -55,41 +55,41 @@ public:
 	bool Initialise();
 
 	/// Adds a log message to the debug log.
-	void AddLogMessage(Log::Type type, const String& message);
+	void AddLogMessage(Core::Log::Type type, const Core::String& message);
 
 protected:
 	void OnUpdate() override;
-	void ProcessEvent(Event& event) override;
+	void ProcessEvent(Core::Event& event) override;
 
 private:
 	struct LogMessage
 	{
 		unsigned int index;
-		String message;
+		Core::String message;
 	};
-	using LogMessageList = Vector< LogMessage >;
+	typedef std::deque< LogMessage > LogMessageList;
 
 	struct LogType
 	{
 		bool visible;
-		String class_name;
-		String alert_contents;
-		String button_name;
+		Core::String class_name;
+		Core::String alert_contents;
+		Core::String button_name;
 		LogMessageList log_messages;
 	};
-	LogType log_types[Log::LT_MAX];
+	LogType log_types[Core::Log::LT_MAX];
 
-	int FindNextEarliestLogType(unsigned int log_pointers[Log::LT_MAX]);
+	int FindNextEarliestLogType(unsigned int log_pointers[Core::Log::LT_MAX]);
 
 	unsigned int current_index;
 	bool dirty_logs;
 	bool auto_scroll;
-	Element* message_content;
-	ElementDocument* beacon;
+	Core::Element* message_content;
+	Core::ElementDocument* beacon;
 	int current_beacon_level;
 };
 
 }
-} // namespace Rml
+}
 
 #endif

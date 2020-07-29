@@ -55,9 +55,9 @@ static const EventTypeSpec WINDOW_EVENTS[] = {
 
 static WindowRef window;
 static timeval start_time;
-static Rml::String clipboard_text;
+static Rml::Core::String clipboard_text;
 
-static Rml::UniquePtr<ShellFileInterface> file_interface;
+static std::unique_ptr<ShellFileInterface> file_interface;
 
 static void IdleTimerCallback(EventLoopTimerRef timer, EventLoopIdleTimerMessage inState, void* p);
 static OSStatus EventHandler(EventHandlerCallRef next_handler, EventRef event, void* p);
@@ -68,10 +68,10 @@ bool Shell::Initialise()
 
 	InputMacOSX::Initialise();
 
-	Rml::String root = FindSamplesRoot();
+	Rml::Core::String root = FindSamplesRoot();
 
-	file_interface = Rml::MakeUnique<ShellFileInterface>(root);
-	Rml::SetFileInterface(file_interface.get());
+	file_interface = std::make_unique<ShellFileInterface>(root);
+	Rml::Core::SetFileInterface(file_interface.get());
 
 	return true;
 }
@@ -81,9 +81,9 @@ void Shell::Shutdown()
 	file_interface.reset();
 }
 
-Rml::String Shell::FindSamplesRoot()
+Rml::Core::String Shell::FindSamplesRoot()
 {
-	Rml::String path = "../../Samples/";
+	Rml::Core::String path = "../../Samples/";
 	
 	// Find the location of the executable.
 	CFBundleRef bundle = CFBundleGetMainBundle();
@@ -94,7 +94,7 @@ Rml::String Shell::FindSamplesRoot()
 	if (!CFStringGetFileSystemRepresentation(executable_posix_file_name, executable_file_name, max_length))
 		executable_file_name[0] = 0;
 
-	Rml::String executable_path = Rml::String(executable_file_name);
+	Rml::Core::String executable_path = Rml::Core::String(executable_file_name);
 	executable_path = executable_path.substr(0, executable_path.rfind("/") + 1);
 
 	delete[] executable_file_name;
@@ -252,19 +252,19 @@ double Shell::GetElapsedTime()
 	return result;
 }
 
-void Shell::SetMouseCursor(const Rml::String& cursor_name)
+void Shell::SetMouseCursor(const Rml::Core::String& cursor_name)
 {
 	// Not implemented
 }
 
 
-void Shell::SetClipboardText(const Rml::String& text)
+void Shell::SetClipboardText(const Rml::Core::String& text)
 {
 	// Todo: interface with system clipboard
 	clipboard_text = text;
 }
 
-void Shell::GetClipboardText(Rml::String& text)
+void Shell::GetClipboardText(Rml::Core::String& text)
 {
 	// Todo: interface with system clipboard
 	text = clipboard_text;

@@ -30,6 +30,7 @@
 #include "../../Include/RmlUi/Core/ElementText.h"
 
 namespace Rml {
+namespace Core {
 
 StyleSheetNodeSelectorLastChild::StyleSheetNodeSelectorLastChild()
 {
@@ -69,4 +70,5 @@ bool StyleSheetNodeSelectorLastChild::IsApplicable(const Element* element, int R
 	return false;
 }
 
-} // namespace Rml
+}
+}

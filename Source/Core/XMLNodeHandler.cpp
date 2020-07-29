@@ -29,9 +29,11 @@
 #include "../../Include/RmlUi/Core/XMLNodeHandler.h"
 
 namespace Rml {
+namespace Core {
 
 XMLNodeHandler::~XMLNodeHandler()
 {
 }
 
-} // namespace Rml
+}
+}

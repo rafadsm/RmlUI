@@ -43,6 +43,8 @@
 #include <string.h>
 
 namespace Rml {
+namespace Core {
+
 
 class AbstractPropertyParser {
 public:
@@ -211,7 +213,7 @@ bool StyleSheetParser::ParseKeyframeBlock(KeyframesMap& keyframes_map, const Str
 	StringList rule_list;
 	StringUtilities::ExpandString(rule_list, rules);
 
-	Vector<float> rule_values;
+	std::vector<float> rule_values;
 	rule_values.reserve(rule_list.size());
 
 	for (auto rule : rule_list)
@@ -362,10 +364,11 @@ int StyleSheetParser::Parse(StyleSheetNode* node, Stream* _stream, const StyleSh
 					StringList rule_name_list;
 					StringUtilities::ExpandString(rule_name_list, pre_token_str);
 
+
 					// Add style nodes to the root of the tree
 					for (size_t i = 0; i < rule_name_list.size(); i++)
 					{
-						auto source = MakeShared<PropertySource>(stream_file_name, rule_line_number, rule_name_list[i]);
+						auto source = std::make_shared<PropertySource>(stream_file_name, rule_line_number, rule_name_list[i]);
 						properties.SetSourceOfAllProperties(source);
 						ImportProperties(node, rule_name_list[i], properties, rule_count);
 					}
@@ -395,7 +398,7 @@ int StyleSheetParser::Parse(StyleSheetNode* node, Stream* _stream, const StyleSh
 					}
 					else if (at_rule_identifier == "decorator")
 					{
-						auto source = MakeShared<PropertySource>(stream_file_name, (int)line_number, pre_token_str);
+						auto source = std::make_shared<PropertySource>(stream_file_name, (int)line_number, pre_token_str);
 						ParseDecoratorBlock(at_rule_name, decorator_map, style_sheet, source);
 						
 						at_rule_name.clear();
@@ -504,26 +507,6 @@ bool StyleSheetParser::ParseProperties(PropertyDictionary& parsed_properties, co
 	return success;
 }
 
-StyleSheetNodeListRaw StyleSheetParser::ConstructNodes(StyleSheetNode& root_node, const String& selectors)
-{
-	const PropertyDictionary empty_properties;
-
-	StringList selector_list;
-	StringUtilities::ExpandString(selector_list, selectors);
-
-	StyleSheetNodeListRaw leaf_nodes;
-
-	for (const String& selector : selector_list)
-	{
-		StyleSheetNode* leaf_node = ImportProperties(&root_node, selector, empty_properties, 0);
-
-		if (leaf_node != &root_node)
-			leaf_nodes.push_back(leaf_node);
-	}
-
-	return leaf_nodes;
-}
-
 
 bool StyleSheetParser::ReadProperties(AbstractPropertyParser& property_parser, bool require_end_semicolon)
 {
@@ -623,7 +606,8 @@ bool StyleSheetParser::ReadProperties(AbstractPropertyParser& property_parser, b
 	return true;
 }
 
-StyleSheetNode* StyleSheetParser::ImportProperties(StyleSheetNode* node, String rule_name, const PropertyDictionary& properties, int rule_specificity)
+// Updates the StyleNode tree, creating new nodes as necessary, setting the definition index
+bool StyleSheetParser::ImportProperties(StyleSheetNode* node, String rule_name, const PropertyDictionary& properties, int rule_specificity)
 {
 	StyleSheetNode* leaf_node = node;
 
@@ -712,7 +696,7 @@ StyleSheetNode* StyleSheetParser::ImportProperties(StyleSheetNode* node, String 
 	// Merge the new properties with those already on the leaf node.
 	leaf_node->ImportProperties(properties, rule_specificity);
 
-	return leaf_node;
+	return true;
 }
 
 char StyleSheetParser::FindToken(String& buffer, const char* tokens, bool remove_token)
@@ -827,4 +811,5 @@ bool StyleSheetParser::FillBuffer()
 	return read;
 }
 
-} // namespace Rml
+}
+}

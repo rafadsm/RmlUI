@@ -36,6 +36,8 @@
 
 
 namespace Rml {
+namespace Core {
+
 
 struct Keyword {
 	enum Type { NONE, TWEEN, ALL, ALTERNATE, INFINITE, PAUSED } type;
@@ -373,4 +375,5 @@ bool PropertyParserAnimation::ParseValue(Property & property, const String & val
 	return result;
 }
 
-} // namespace Rml
+}
+}

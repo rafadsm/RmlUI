@@ -26,18 +26,19 @@
  *
  */
 
-#ifndef RMLUI_CORE_IDNAMEMAP_H
-#define RMLUI_CORE_IDNAMEMAP_H
+#ifndef RMLUICOREIDNAMEMAP_H
+#define RMLUICOREIDNAMEMAP_H
 
 #include "../../Include/RmlUi/Core/Header.h"
 #include "../../Include/RmlUi/Core/Types.h"
 #include <algorithm>
 
 namespace Rml {
+namespace Core {
 
 template <typename ID>
 class IdNameMap {
-	Vector<String> name_map;  // IDs are indices into the name_map
+	std::vector<String> name_map;  // IDs are indices into the name_map
 	UnorderedMap<String, ID> reverse_map;
 
 protected:
@@ -112,5 +113,7 @@ public:
 	ShorthandIdNameMap(size_t reserve_num_shorthands) : IdNameMap(reserve_num_shorthands) {}
 };
 
-} // namespace Rml
+}
+}
+
 #endif

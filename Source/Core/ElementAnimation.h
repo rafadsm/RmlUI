@@ -26,14 +26,16 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTANIMATION_H
-#define RMLUI_CORE_ELEMENTANIMATION_H
+#ifndef RMLUICOREELEMENTANIMATION_H
+#define RMLUICOREELEMENTANIMATION_H
 
 #include "../../Include/RmlUi/Core/Header.h"
 #include "../../Include/RmlUi/Core/Property.h"
 #include "../../Include/RmlUi/Core/Tween.h"
 
 namespace Rml {
+namespace Core {
+
 
 struct AnimationKey {
 	AnimationKey(float time, const Property& property, Tween tween) : time(time), property(property), tween(tween) {}
@@ -57,7 +59,7 @@ private:
 	int num_iterations = 0;       // -1 for infinity
 	bool alternate_direction = 0; // between iterations
 
-	Vector<AnimationKey> keys;
+	std::vector<AnimationKey> keys;
 
 	double last_update_world_time = 0;
 	float time_since_iteration_start = 0;
@@ -90,5 +92,7 @@ public:
 };
 
 
-} // namespace Rml
+}
+}
+
 #endif

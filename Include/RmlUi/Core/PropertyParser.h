@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_PROPERTYPARSER_H
-#define RMLUI_CORE_PROPERTYPARSER_H
+#ifndef RMLUICOREPROPERTYPARSER_H
+#define RMLUICOREPROPERTYPARSER_H
 
 #include "Header.h"
 #include "Property.h"
 
 namespace Rml {
+namespace Core {
 
 using ParameterMap = UnorderedMap< String, int >;
 
@@ -55,5 +56,7 @@ public:
 	virtual bool ParseValue(Property& property, const String& value, const ParameterMap& parameters) const = 0;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

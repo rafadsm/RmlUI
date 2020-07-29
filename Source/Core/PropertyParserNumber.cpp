@@ -30,6 +30,7 @@
 #include <stdlib.h>
 
 namespace Rml {
+namespace Core {
 
 static const UnorderedMap<String, Property::Unit> g_property_unit_string_map =
 {
@@ -114,4 +115,5 @@ bool PropertyParserNumber::ParseValue(Property& property, const String& value, c
 	return false;
 }
 
-} // namespace Rml
+}
+}

@@ -32,7 +32,7 @@
 #include <cstdio>
 #include <string.h>
 
-#ifdef RMLUI_PLATFORM_WIN32
+#ifdef WIN32
 #include <io.h>
 #else
 #include <dirent.h>
@@ -40,7 +40,7 @@
 
 struct FileSystemNode;
 
-typedef Rml::UnorderedMap< Rml::String, FileSystemNode* > NodeMap;
+typedef Rml::Core::UnorderedMap< Rml::Core::String, FileSystemNode* > NodeMap;
 
 FileSystemNode* file_system_root = nullptr;
 NodeMap node_map;
@@ -53,9 +53,9 @@ NodeMap node_map;
 
 struct FileSystemNode
 {
-	FileSystemNode(const Rml::String _name, bool _directory, int _depth = -1) : name(_name)
+	FileSystemNode(const Rml::Core::String _name, bool _directory, int _depth = -1) : name(_name)
 	{
-		id = Rml::CreateString(16, "%x", this);
+		id = Rml::Core::CreateString(16, "%x", this);
 
 		directory = _directory;
 		depth = _depth;
@@ -70,9 +70,9 @@ struct FileSystemNode
 	}
 
 	// Build the list of files and directories within this directory.
-	void BuildTree(const Rml::String& root = "")
+	void BuildTree(const Rml::Core::String& root = "")
 	{
-#ifdef RMLUI_PLATFORM_WIN32
+#ifdef WIN32
 		_finddata_t find_data;
 		intptr_t find_handle = _findfirst((root + name + "/*.*").c_str(), &find_data);
 		if (find_handle != -1)
@@ -117,10 +117,10 @@ struct FileSystemNode
 		}
 	}
 
-	typedef Rml::Vector< FileSystemNode* > NodeList;
+	typedef std::vector< FileSystemNode* > NodeList;
 
-	Rml::String id;
-	Rml::String name;
+	Rml::Core::String id;
+	Rml::Core::String name;
 	bool directory;
 	int depth;
 
@@ -128,7 +128,7 @@ struct FileSystemNode
 };
 
 
-FileSystem::FileSystem(const Rml::String& root) : Rml::DataSource("file")
+FileSystem::FileSystem(const Rml::Core::String& root) : Rml::Controls::DataSource("file")
 {
 	// Generate the file system nodes starting at the RmlUi's root directory.
 	file_system_root = new FileSystemNode(".", true);
@@ -141,7 +141,7 @@ FileSystem::~FileSystem()
 	file_system_root = nullptr;
 }
 
-void FileSystem::GetRow(Rml::StringList& row, const Rml::String& table, int row_index, const Rml::StringList& columns)
+void FileSystem::GetRow(Rml::Core::StringList& row, const Rml::Core::String& table, int row_index, const Rml::Core::StringList& columns)
 {
 	// Get the node that data is being queried from; one of its children (as indexed by row_index)
 	// is the actual node the data will be read from.
@@ -159,9 +159,9 @@ void FileSystem::GetRow(Rml::StringList& row, const Rml::String& table, int row_
 		else if (columns[i] == "depth")
 		{
 			// Returns the depth of the node (ie, how far down the directory structure it is).
-			row.push_back(Rml::CreateString(8, "%d", node->child_nodes[row_index]->depth));
+			row.push_back(Rml::Core::CreateString(8, "%d", node->child_nodes[row_index]->depth));
 		}
-		else if (columns[i] == Rml::DataSource::CHILD_SOURCE)
+		else if (columns[i] == Rml::Controls::DataSource::CHILD_SOURCE)
 		{
 			// Returns the name of the data source that this node's children can be queried from.
 			row.push_back("file." + node->child_nodes[row_index]->id);
@@ -169,7 +169,7 @@ void FileSystem::GetRow(Rml::StringList& row, const Rml::String& table, int row_
 	}
 }
 
-int FileSystem::GetNumRows(const Rml::String& table)
+int FileSystem::GetNumRows(const Rml::Core::String& table)
 {
 	FileSystemNode* node = GetNode(table);
 
@@ -179,7 +179,7 @@ int FileSystem::GetNumRows(const Rml::String& table)
 	return 0;
 }
 
-FileSystemNode* FileSystem::GetNode(const Rml::String& table)
+FileSystemNode* FileSystem::GetNode(const Rml::Core::String& table)
 {
 	// Determine which node the row is being requested from.
 	if (table == "root")

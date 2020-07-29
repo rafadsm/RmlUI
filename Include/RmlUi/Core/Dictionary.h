@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_DICTIONARY_H
-#define RMLUI_CORE_DICTIONARY_H
+#ifndef RMLUICOREDICTIONARY_H
+#define RMLUICOREDICTIONARY_H
 
 #include "Header.h"
 #include "Variant.h"
 
 namespace Rml {
+namespace Core {
 
 inline Variant* GetIf(Dictionary& dictionary, const String& key)
 {
@@ -58,5 +59,7 @@ inline T Get(const Dictionary& dictionary, const String& key, const T& default_v
 	return result;
 }
 
-} // namespace Rml
+}
+}
+
 #endif

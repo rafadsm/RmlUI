@@ -34,19 +34,20 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <shlwapi.h>
+#pragma comment( lib  , "Shlwapi.lib"  )
 
 static LRESULT CALLBACK WindowProcedure(HWND window_handle, UINT message, WPARAM w_param, LPARAM l_param);
 
 static bool activated = true;
 static bool running = false;
-static Rml::U16String instance_name;
+static Rml::Core::U16String instance_name;
 static HWND window_handle = nullptr;
 static HINSTANCE instance_handle = nullptr;
 
 static double time_frequency;
 static LARGE_INTEGER time_startup;
 
-static Rml::UniquePtr<ShellFileInterface> file_interface;
+static std::unique_ptr<ShellFileInterface> file_interface;
 
 static HCURSOR cursor_default = nullptr;
 static HCURSOR cursor_move = nullptr;
@@ -77,11 +78,11 @@ bool Shell::Initialise()
 	cursor_text = LoadCursor(nullptr, IDC_IBEAM);
 	cursor_unavailable = LoadCursor(nullptr, IDC_NO);
 
-	Rml::String root = FindSamplesRoot();
+	Rml::Core::String root = FindSamplesRoot();
 	bool result = !root.empty();
 	
-	file_interface = Rml::MakeUnique<ShellFileInterface>(root);
-	Rml::SetFileInterface(file_interface.get());
+	file_interface = std::make_unique<ShellFileInterface>(root);
+	Rml::Core::SetFileInterface(file_interface.get());
 
 	return result;
 }
@@ -93,7 +94,7 @@ void Shell::Shutdown()
 	file_interface.reset();
 }
 
-Rml::String Shell::FindSamplesRoot()
+Rml::Core::String Shell::FindSamplesRoot()
 {
 	const char* candidate_paths[] = { "", "..\\..\\Samples\\", "..\\Samples\\", "..\\..\\..\\Samples\\" };
 	
@@ -105,7 +106,7 @@ Rml::String Shell::FindSamplesRoot()
 		executable_file_name[0] = 0;
 	}
 
-	Rml::String executable_path(executable_file_name);
+	Rml::Core::String executable_path(executable_file_name);
 	executable_path = executable_path.substr(0, executable_path.rfind('\\') + 1);
 
 	// We assume we have found the correct path if we can find the lookup file from it
@@ -113,19 +114,19 @@ Rml::String Shell::FindSamplesRoot()
 
 	for(const char* relative_path : candidate_paths)
 	{
-		Rml::String absolute_path = executable_path + relative_path;
+		Rml::Core::String absolute_path = executable_path + relative_path;
 
-		if (PathFileExistsA(Rml::String(absolute_path + lookup_file).c_str()))
+		if (PathFileExistsA(Rml::Core::String(absolute_path + lookup_file).c_str()))
 		{
 			char canonical_path[MAX_PATH];
 			if (!PathCanonicalizeA(canonical_path, absolute_path.c_str()))
 				canonical_path[0] = 0;
 
-			return Rml::String(canonical_path);
+			return Rml::Core::String(canonical_path);
 		}
 	}
 
-	return Rml::String();
+	return Rml::Core::String();
 }
 
 static ShellRenderInterfaceExtensions *shell_renderer = nullptr;
@@ -133,7 +134,7 @@ bool Shell::OpenWindow(const char* in_name, ShellRenderInterfaceExtensions *_she
 {
 	WNDCLASSW window_class;
 
-	Rml::U16String name = Rml::StringUtilities::ToUTF16(Rml::String(in_name));
+	Rml::Core::U16String name = Rml::Core::StringUtilities::ToUTF16(Rml::Core::String(in_name));
 
 	// Fill out the window class struct.
 	window_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
@@ -268,7 +269,7 @@ void Shell::DisplayError(const char* fmt, ...)
 	buffer[len + 1] = '\0';
 	va_end(argument_list);
 
-	MessageBoxW(window_handle, (LPCWSTR)Rml::StringUtilities::ToUTF16(buffer).c_str(), L"Shell Error", MB_OK);
+	MessageBox(window_handle, (LPCWSTR)Rml::Core::StringUtilities::ToUTF16(buffer).c_str(), L"Shell Error", MB_OK);
 }
 
 void Shell::Log(const char* fmt, ...)
@@ -288,7 +289,7 @@ void Shell::Log(const char* fmt, ...)
 	buffer[len + 1] = '\0';
 	va_end(argument_list);
 
-	OutputDebugStringW((LPCWSTR)Rml::StringUtilities::ToUTF16(buffer).c_str());
+	OutputDebugString((LPCWSTR)Rml::Core::StringUtilities::ToUTF16(buffer).c_str());
 }
 
 double Shell::GetElapsedTime() 
@@ -299,7 +300,7 @@ double Shell::GetElapsedTime()
 	return double(counter.QuadPart - time_startup.QuadPart) * time_frequency;
 }
 
-void Shell::SetMouseCursor(const Rml::String& cursor_name)
+void Shell::SetMouseCursor(const Rml::Core::String& cursor_name)
 {
 	if (window_handle)
 	{
@@ -327,7 +328,7 @@ void Shell::SetMouseCursor(const Rml::String& cursor_name)
 	}
 }
 
-void Shell::SetClipboardText(const Rml::String& text_utf8)
+void Shell::SetClipboardText(const Rml::Core::String& text_utf8)
 {
 	if (window_handle)
 	{
@@ -336,7 +337,7 @@ void Shell::SetClipboardText(const Rml::String& text_utf8)
 
 		EmptyClipboard();
 
-		const Rml::U16String text = Rml::StringUtilities::ToUTF16(text_utf8);
+		const Rml::Core::U16String text = Rml::Core::StringUtilities::ToUTF16(text_utf8);
 
 		size_t size = sizeof(char16_t) * (text.size() + 1);
 
@@ -353,7 +354,7 @@ void Shell::SetClipboardText(const Rml::String& text_utf8)
 	}
 }
 
-void Shell::GetClipboardText(Rml::String& text)
+void Shell::GetClipboardText(Rml::Core::String& text)
 {
 	if (window_handle)
 	{
@@ -369,7 +370,7 @@ void Shell::GetClipboardText(Rml::String& text)
 
 		const char16_t* clipboard_text = (const char16_t*)GlobalLock(clipboard_data);
 		if (clipboard_text)
-			text = Rml::StringUtilities::ToUTF8(clipboard_text);
+			text = Rml::Core::StringUtilities::ToUTF8(clipboard_text);
 		GlobalUnlock(clipboard_data);
 
 		CloseClipboard();

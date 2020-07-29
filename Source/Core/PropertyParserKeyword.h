@@ -26,12 +26,13 @@
  *
  */
 
-#ifndef RMLUI_CORE_PROPERTYPARSERKEYWORD_H
-#define RMLUI_CORE_PROPERTYPARSERKEYWORD_H
+#ifndef RMLUICOREPROPERTYPARSERKEYWORD_H
+#define RMLUICOREPROPERTYPARSERKEYWORD_H
 
 #include "../../Include/RmlUi/Core/PropertyParser.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	A property parser that validates a value is part of a specified list of keywords.
@@ -53,5 +54,7 @@ public:
 	bool ParseValue(Property& property, const String& value, const ParameterMap& parameters) const override;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

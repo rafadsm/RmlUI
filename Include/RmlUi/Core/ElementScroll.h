@@ -26,15 +26,16 @@
  *
  */
 
-#ifndef RMLUI_CORE_ELEMENTSCROLL_H
-#define RMLUI_CORE_ELEMENTSCROLL_H
+#ifndef RMLUICOREELEMENTSCROLL_H
+#define RMLUICOREELEMENTSCROLL_H
 
 #include "Header.h"
 
 namespace Rml {
+namespace Core {
 
 class Element;
-class WidgetScroll;
+class WidgetSliderScroll;
 
 /**
 	Manages an element's scrollbars and scrolling state.
@@ -91,7 +92,7 @@ private:
 		~Scrollbar();
 
 		Element* element;
-		WidgetScroll* widget;
+		WidgetSliderScroll* widget;
 		bool enabled;
 		float size;
 	};
@@ -107,5 +108,7 @@ private:
 	Element* corner;
 };
 
-} // namespace Rml
+}
+}
+
 #endif

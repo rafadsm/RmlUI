@@ -26,13 +26,14 @@
  *
  */
 
-#ifndef RMLUI_CORE_STRINGUTILITIES_H
-#define RMLUI_CORE_STRINGUTILITIES_H
+#ifndef RMLUICORESTRINGUTILITIES_H
+#define RMLUICORESTRINGUTILITIES_H
 
 #include "Header.h"
 #include "Types.h"
 
 namespace Rml {
+namespace Core {
 
 /**
 	Helper functions for string manipulation.
@@ -72,8 +73,6 @@ namespace StringUtilities
 
 	/// Converts upper-case characters in string to lower-case.
 	RMLUICORE_API String ToLower(const String& string);
-	/// Converts lower-case characters in string to upper-case.
-	RMLUICORE_API String ToUpper(const String& string);
 
 	/// Encode RML characters, eg. '<' to '&lt;'
 	RMLUICORE_API String EncodeRml(const String& string);
@@ -94,10 +93,6 @@ namespace StringUtilities
 
 	/// Strip whitespace characters from the beginning and end of a string.
 	RMLUICORE_API String StripWhitespace(StringView string);
-
-	/// Trim trailing zeros and the dot from a string-representation of a number with a decimal point.
-	/// @warning If the string does not represent a number _with_ a decimal point, the result will probably not be as desired.
-	RMLUICORE_API void TrimTrailingDotZeros(String& string);
 
 	/// Case insensitive string comparison. Returns true if they compare equal.
 	RMLUICORE_API bool StringCompareCaseInsensitive(StringView lhs, StringView rhs);
@@ -160,7 +155,7 @@ public:
 	inline const char* begin() const { return p_begin; }
 	inline const char* end() const { return p_end; }
 
-	inline size_t size() const { return size_t(p_end - p_begin); }
+	inline size_t size() const { return p_end - p_begin; }
 
 	explicit inline operator String() const {
 		return String(p_begin, p_end);
@@ -202,10 +197,10 @@ public:
 	bool operator!=(const StringIteratorU8& other) const { return !(*this == other); }
 
 	// Return a pointer to the current position.
-	inline const char* get() const { return p; }
+	inline const char* Get() const { return p; }
 
 	// Return offset from the beginning of string. Note: Can return negative if decremented.
-	std::ptrdiff_t offset() const { return p - view.begin(); }
+	std::ptrdiff_t Offset() const { return p - view.begin(); }
 
 private:
 	StringView view;
@@ -219,5 +214,7 @@ private:
 
 
 
-} // namespace Rml
+}
+}
+
 #endif

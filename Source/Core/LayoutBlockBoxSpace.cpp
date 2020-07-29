@@ -34,6 +34,7 @@
 #include <float.h>
 
 namespace Rml {
+namespace Core {
 
 LayoutBlockBoxSpace::LayoutBlockBoxSpace(LayoutBlockBox* _parent) : offset(0, 0), dimensions(0, 0)
 {
@@ -285,4 +286,5 @@ LayoutBlockBoxSpace::SpaceBox::SpaceBox(const Vector2f& offset, const Vector2f& 
 {
 }
 
-} // namespace Rml
+}
+}
